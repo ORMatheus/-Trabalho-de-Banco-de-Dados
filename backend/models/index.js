@@ -5,4 +5,4 @@ const path = require('path'); //modulo path para trabalhar com caminhos de arqui
 const Sequelize=require('sequelize'); // modulo para trabalhar com o ORM
 const basename=path.basename(__filename); // Pega o nome deste arquivo ('index.js').
 
-
+const config= require(__dirname +  '/../config/database.js');
