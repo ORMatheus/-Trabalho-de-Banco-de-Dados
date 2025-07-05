@@ -10,3 +10,7 @@ const db={} ; // cria um objeto vazio no db que sera exportado no final
 
 let sequelize;
 sequelize = new sequelize(config.database,config.username,config.password,config);
+
+fs
+    .readdirSync(__dirname)
+
