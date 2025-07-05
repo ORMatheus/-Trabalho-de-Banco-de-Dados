@@ -16,8 +16,8 @@ async function run() {
     // CREATE: Criar um novo cliente
     // Note que o ID_Cliente será gerado automaticamente pelo SERIAL
       const novoCliente = await db.Cliente.create({
-        Nome: "Teste Cliente ORM",
-        Email: `teste.orm${Date.now()}@email.com`, // Adiciona um timestamp para torná-lo único
+        Nome: "Teste Cliente ORM 2",
+        Email: "teste.orm2@email.com",
         Hash_Senha: "senhaORMsegura",
         Telefone: "9988776655",
       });
