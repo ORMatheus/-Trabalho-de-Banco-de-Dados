@@ -1,6 +1,6 @@
 // models/Pedido.js
 module.exports = (sequelize, DataTypes) => {
-  const Pedido = sequelize.define('Pedido', {
+  const Pedido = sequelize.define('pedido', {
     ID_Pedido: {
       type: DataTypes.INTEGER,
       primaryKey: true,

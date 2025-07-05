@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pregai | Moda Cristã com Propósito</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -23,11 +21,26 @@
             background-size: cover;
             background-position: center;
         }
+        .message {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- Header -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-gray-900 font-display">
@@ -48,7 +61,6 @@
                 </button>
             </div>
         </nav>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden">
             <a href="#inicio" class="block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100">Início</a>
             <a href="#sobre" class="block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100">Nossa Missão</a>
@@ -59,7 +71,6 @@
     </header>
 
     <main>
-        <!-- Seção Hero -->
         <section id="inicio" class="hero-bg text-white h-[85vh] flex items-center justify-center">
             <div class="bg-black bg-opacity-50 p-10 rounded-lg text-center">
                 <h1 class="text-4xl md:text-6xl font-bold font-display mb-4">Vista sua Fé com Estilo.</h1>
@@ -70,7 +81,6 @@
             </div>
         </section>
 
-        <!-- Seção Sobre / Missão -->
         <section id="sobre" class="py-20 bg-white">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl font-bold font-display mb-4 text-gray-900">Nossa Missão</h2>
@@ -81,61 +91,20 @@
             </div>
         </section>
 
-        <!-- Seção Coleção -->
         <section id="colecao" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold font-display text-center mb-12 text-gray-900">Nova Coleção: Atributos</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <!-- Produto 1 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
-                        <div class="overflow-hidden">
-                            <img src="https://placehold.co/600x750/f9fafb/374151?text=Moletom+Atos+1%3A8" alt="Moletom Atos 1:8" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
-                        </div>
-                        <div class="p-6 text-center">
-                            <h3 class="text-xl font-bold mb-2">Moletom 'Atos 1:8'</h3>
-                            <p class="text-gray-600 mb-4">Receba o poder do Espírito Santo.</p>
-                        </div>
-                    </div>
-                    <!-- Produto 2 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
-                        <div class="overflow-hidden">
-                           <img src="https://placehold.co/600x750/111827/e5e7eb?text=Pedra+Angular" alt="Camiseta Pedra Angular" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
-                        </div>
-                        <div class="p-6 text-center">
-                            <h3 class="text-xl font-bold mb-2">Camiseta 'Pedra Angular'</h3>
-                            <p class="text-gray-600 mb-4">Ele é a rocha inabalável, nosso fundamento.</p>
-                        </div>
-                    </div>
-                    <!-- Produto 3 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
-                         <div class="overflow-hidden">
-                           <img src="https://placehold.co/600x750/fefce8/f97316?text=Sol+da+Justiça" alt="Camiseta Sol da Justiça" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
-                        </div>
-                        <div class="p-6 text-center">
-                            <h3 class="text-xl font-bold mb-2">Camiseta 'Sol da Justiça'</h3>
-                            <p class="text-gray-600 mb-4">O astro que traz cura em suas asas.</p>
-                        </div>
-                    </div>
-                     <!-- Produto 4 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
-                         <div class="overflow-hidden">
-                           <img src="https://placehold.co/600x750/e0f2fe/0ea5e9?text=Grow+in+Grace" alt="Camiseta Grow in Grace" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
-                        </div>
-                        <div class="p-6 text-center">
-                            <h3 class="text-xl font-bold mb-2">Camiseta 'Grow in Grace'</h3>
-                            <p class="text-gray-600 mb-4">Cresça na graça e no conhecimento.</p>
-                        </div>
-                    </div>
+                <h2 class="text-3xl font-bold font-display text-center mb-12 text-gray-900">Nossos Produtos</h2>
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <p class="col-span-full text-center text-gray-600">Carregando produtos...</p>
                 </div>
-                 <div class="text-center mt-12">
-                     <a href="#" class="bg-gray-800 text-white font-bold py-3 px-8 rounded-full hover:bg-gray-900 transition duration-300">
-                        VER TODOS OS PRODUTOS
-                    </a>
+                <div class="text-center mt-12">
+                     <button id="loadMoreProductsBtn" class="bg-gray-800 text-white font-bold py-3 px-8 rounded-full hover:bg-gray-900 transition duration-300">
+                        CARREGAR MAIS PRODUTOS
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Seção Depoimentos -->
         <section class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold font-display text-center mb-12 text-gray-900">O que nossos clientes dizem</h2>
@@ -152,32 +121,35 @@
             </div>
         </section>
 
-        <!-- Seção de Cadastro -->
         <section id="cadastro" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
                 <div class="max-w-2xl mx-auto text-center">
                     <h2 class="text-3xl font-bold font-display mb-4 text-gray-900">Receba Nossas Novidades</h2>
                     <p class="text-gray-600 mb-8">Cadastre-se para ficar por dentro dos lançamentos, promoções e receber conteúdos exclusivos.</p>
                 </div>
-                <form class="max-w-xl mx-auto">
+                <form id="cadastroForm" class="max-w-xl mx-auto">
                     <div class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
-                            <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                            <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500" required>
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                            <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500" required>
                         </div>
                         <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700">Telefone</label>
-                            <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                            <label for="password">Criar Senha</label> <input type="password" id="password" name="password" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Telefone (Opcional, 10 dígitos)</label>
+                            <input type="tel" id="phone" name="phone" maxlength="10" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="bg-gray-800 text-white font-bold py-3 px-12 rounded-full hover:bg-gray-900 transition duration-300">
                                 QUERO ME CADASTRAR
                             </button>
                         </div>
+                        <div id="cadastroMessage" class="message"></div>
                     </div>
                 </form>
             </div>
@@ -185,7 +157,6 @@
 
     </main>
 
-    <!-- Footer -->
     <footer id="contato" class="bg-gray-900 text-white">
         <div class="container mx-auto px-6 py-12">
             <div class="text-center">
@@ -201,8 +172,8 @@
         </div>
     </footer>
     
-    <script>
-        // Script para o menu mobile
+    <script src="script.js"></script> <script>
+        // Script para o menu mobile (pode ser movido para script.js se preferir)
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -214,9 +185,9 @@
         const navLinks = document.querySelectorAll('#mobile-menu a, header nav a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                 if (!mobileMenu.classList.contains('hidden')) {
+                if (!mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
-                 }
+                }
             });
         });
     </script>
