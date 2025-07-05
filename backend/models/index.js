@@ -6,3 +6,7 @@ const Sequelize=require('sequelize'); // modulo para trabalhar com o ORM
 const basename=path.basename(__filename); // Pega o nome deste arquivo ('index.js').
 
 const config= require(__dirname +  '/../config/database.js');
+const db={} ; // cria um objeto vazio no db que sera exportado no final 
+
+let sequelize;
+sequelize = new sequelize(config.database,config.username,config.password,config);
