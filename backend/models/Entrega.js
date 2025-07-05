@@ -42,5 +42,17 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+
+  
+Entrega.associate = (models) => {
+  Entrega.belongsTo(models.pedido, {
+    foreignKey: 'id_pedido', // Chave estrangeira nesta tabela
+    as: 'pedido'
+  });
+  Entrega.belongsTo(models.entregador, { // Nome do model em Entregador.js
+    foreignKey: 'id_entregador', // Chave estrangeira nesta tabela
+    as: 'entregador'
+  });
+};
   return Entrega;
 };

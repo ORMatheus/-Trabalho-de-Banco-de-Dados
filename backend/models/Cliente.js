@@ -34,13 +34,20 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-  Cliente.associate = (models) => {
-    // Um Cliente TEM MUITOS Pedidos
-    Cliente.hasMany(models.pedido, { 
-      foreignKey: 'ID_Cliente', 
-      as: 'pedidos' 
-    });
-  };
+Cliente.associate = (models) => {
+  // Relação: Um Cliente TEM MUITOS Endereços
+  Cliente.hasMany(models.endereco, {
+    foreignKey: 'ID_Cliente', // Chave estrangeira em Endereco
+    as: 'enderecos'
+  });
+
+  // Relação: Um Cliente TEM MUITOS Pedidos
+  Cliente.hasMany(models.pedido, { // 'pedido' será o nome do model em Pedido.js
+    foreignKey: 'ID_Cliente', // Chave estrangeira em Pedido
+    as: 'pedidos'
+  });
+};
+
 
   return Cliente;
 };

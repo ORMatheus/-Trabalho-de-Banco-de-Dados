@@ -39,11 +39,25 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
-  Produto.associate = (models) => {
-  Produto.belongsToMany(models.pedido, { 
-    through: models.item_pedido, 
-    foreignKey: 'id_produto', 
+
+Produto.associate = (models) => {
+  // Relação Muitos-para-Muitos: Produto <-> Pedido
+  Produto.belongsToMany(models.pedido, {
+    through: models.item_pedido,      // A tabela "ponte"
+    foreignKey: 'id_produto',         // Chave estrangeira em item_pedido
     as: 'pedidos'
+  });
+
+  // Relação: Um Produto TEM MUITAS Imagens
+  Produto.hasMany(models.imagens_produto, { // Nome do model em ImagemProduto.js
+    foreignKey: 'id_produto',         // Chave estrangeira em imagens_produto
+    as: 'imagens'
+  });
+
+  // Relação: Um Produto TEM MUITOS Atributos
+  Produto.hasMany(models.atributos_produto, { // Nome do model em atributosProduto.js
+    foreignKey: 'id_produto',            // Chave estrangeira em atributos_produto
+    as: 'atributos'
   });
 };
 

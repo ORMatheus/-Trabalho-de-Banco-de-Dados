@@ -48,6 +48,17 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
+
+
+
+Endereco.associate = (models) => {
+  // Relação: Um Endereço PERTENCE A UM Cliente
+  Endereco.belongsTo(models.cliente, { // 'cliente' é o nome do model em Cliente.js
+    foreignKey: 'id_cliente', // Chave estrangeira nesta tabela
+    as: 'cliente'
+  });
+};
+
   
   return Endereco;
 };

@@ -44,6 +44,21 @@ module.exports = (sequelize, DataTypes) => {
     ItemPedido.belongsTo(models.produto, { 
         foreignKey: 'id_produto', 
         as: 'produto' });
+};  
+
+
+ItemPedido.associate = (models) => {
+  // Relação: Um ItemPedido PERTENCE A UM Pedido
+  ItemPedido.belongsTo(models.pedido, {
+    foreignKey: 'id_pedido', // Chave estrangeira nesta tabela
+    as: 'pedido'
+  });
+
+  // Relação: Um ItemPedido PERTENCE A UM Produto
+  ItemPedido.belongsTo(models.produto, {
+    foreignKey: 'id_produto', // Chave estrangeira nesta tabela
+    as: 'produto'
+  });
 };
 
   return ItemPedido;

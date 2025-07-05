@@ -22,5 +22,13 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'entregador', 
   });
 
+
+Entregador.associate = (models) => {
+  Entregador.hasMany(models.entrega, {
+    foreignKey: 'id_entregador', // Chave estrangeira em entrega
+    as: 'entregas'
+  });
+};
+
   return Entregador;
 }

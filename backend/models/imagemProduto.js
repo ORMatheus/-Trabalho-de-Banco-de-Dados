@@ -22,5 +22,13 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+ 
+ImagensProduto.associate = (models) => {
+  ImagensProduto.belongsTo(models.produto, {
+    foreignKey: 'id_produto', // Chave estrangeira nesta tabela
+    as: 'produto'
+  });
+};
+
   return ImagensProduto;
 };
