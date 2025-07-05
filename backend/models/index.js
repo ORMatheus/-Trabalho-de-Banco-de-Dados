@@ -36,37 +36,37 @@ db.Entrega = require('./entrega')(sequelize, DataTypes);
 // Use 'as' para definir um alias para o relacionamento, tornando-o mais legível.
 
 // Cliente e Endereço (1:N)
-db.Cliente.hasMany(db.Endereco, { foreignKey: 'ID_Cliente', as: 'enderecos' });
-db.Endereco.belongsTo(db.Cliente, { foreignKey: 'ID_Cliente', as: 'cliente' });
+db.Cliente.hasMany(db.Endereco, { foreignKey: 'id_cliente', as: 'enderecos' });
+db.Endereco.belongsTo(db.Cliente, { foreignKey: 'id_cliente', as: 'cliente' });
 
 // Produto e Atributos_Produto (1:N)
-db.Produto.hasMany(db.AtributosProduto, { foreignKey: 'ID_Produto', as: 'atributos' });
-db.AtributosProduto.belongsTo(db.Produto, { foreignKey: 'ID_Produto', as: 'produto' });
+db.Produto.hasMany(db.AtributosProduto, { foreignKey: 'id_produto', as: 'atributos' });
+db.AtributosProduto.belongsTo(db.Produto, { foreignKey: 'id_produto', as: 'produto' });
 
 // Produto e Imagens_Produto (1:N)
-db.Produto.hasMany(db.ImagensProduto, { foreignKey: 'ID_Produto', as: 'imagens' });
-db.ImagensProduto.belongsTo(db.Produto, { foreignKey: 'ID_Produto', as: 'produto' });
+db.Produto.hasMany(db.ImagensProduto, { foreignKey: 'id_produto', as: 'imagens' });
+db.ImagensProduto.belongsTo(db.Produto, { foreignKey: 'id_produto', as: 'produto' });
 
 // Cliente e Pedido (1:N)
-db.Cliente.hasMany(db.Pedido, { foreignKey: 'ID_Cliente', as: 'pedidos' });
-db.Pedido.belongsTo(db.Cliente, { foreignKey: 'ID_Cliente', as: 'cliente' });
+db.Cliente.hasMany(db.Pedido, { foreignKey: 'id_cliente', as: 'pedidos' });
+db.Pedido.belongsTo(db.Cliente, { foreignKey: 'id_cliente', as: 'cliente' });
 
 // Pedido e Item_Pedido (1:N)
-db.Pedido.hasMany(db.ItemPedido, { foreignKey: 'ID_Pedido', as: 'itensPedido' });
-db.ItemPedido.belongsTo(db.Pedido, { foreignKey: 'ID_Pedido', as: 'pedido' });
+db.Pedido.hasMany(db.ItemPedido, { foreignKey: 'id_pedido', as: 'itensPedido' });
+db.ItemPedido.belongsTo(db.Pedido, { foreignKey: 'id_pedido', as: 'pedido' });
 
 // Produto e Item_Pedido (1:N - ou N:M através de Item_Pedido)
 // O Item_Pedido é a tabela de junção para um relacionamento N:M entre Pedido e Produto.
-db.Produto.hasMany(db.ItemPedido, { foreignKey: 'ID_Produto', as: 'itensPedidoProduto' });
-db.ItemPedido.belongsTo(db.Produto, { foreignKey: 'ID_Produto', as: 'produto' });
+db.Produto.hasMany(db.ItemPedido, { foreignKey: 'id_produto', as: 'itensPedidoProduto' });
+db.ItemPedido.belongsTo(db.Produto, { foreignKey: 'id_produto', as: 'produto' });
 
 // Pedido e Entrega (1:1 - ID_Pedido em Entrega é UNIQUE)
-db.Pedido.hasOne(db.Entrega, { foreignKey: 'ID_Pedido', as: 'entrega' });
-db.Entrega.belongsTo(db.Pedido, { foreignKey: 'ID_Pedido', as: 'pedido' });
+db.Pedido.hasOne(db.Entrega, { foreignKey: 'id_pedido', as: 'entrega' });
+db.Entrega.belongsTo(db.Pedido, { foreignKey: 'id_pedido', as: 'pedido' });
 
 // Entregador e Entrega (1:N)
-db.Entregador.hasMany(db.Entrega, { foreignKey: 'ID_Entregador', as: 'entregas' });
-db.Entrega.belongsTo(db.Entregador, { foreignKey: 'ID_Entregador', as: 'entregador' });
+db.Entregador.hasMany(db.Entrega, { foreignKey: 'id_entregador', as: 'entregas' });
+db.Entrega.belongsTo(db.Entregador, { foreignKey: 'id_entregador', as: 'entregador' });
 
 
 // Exporte o objeto db, que contém a instância do Sequelize e todos os modelos

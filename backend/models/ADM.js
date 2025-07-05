@@ -1,6 +1,6 @@
 // models/ADM.js
 module.exports = (sequelize, DataTypes) => {
-  const ADM = sequelize.define('ADM', {
+  const ADM = sequelize.define('adm', {
     ID_Admin: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -10,18 +10,18 @@ module.exports = (sequelize, DataTypes) => {
     Nome_Admin: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      field: 'Nome_Admin'
+      field: 'nome_admin'
     },
     Email_Admin: {
       type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
-      field: 'Email_Admin'
+      field: 'email_admin'
     },
     Hash_Senha_Admin: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      field: 'Hash_Senha_Admin'
+      field: 'hash_senha_admin'
     }
   }, {
     tableName: 'adm', // Nome exato da tabela no seu SQL [cite: 8]

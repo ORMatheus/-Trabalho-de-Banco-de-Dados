@@ -1,6 +1,6 @@
 // models/AtributosProduto.js
 module.exports = (sequelize, DataTypes) => {
-  const AtributosProduto = sequelize.define('AtributosProduto', { // Use 'Atributos_Produto' para o modelo
+  const AtributosProduto = sequelize.define('atributosproduto', { // Use 'Atributos_Produto' para o modelo
     ID_Atributo: {
       type: DataTypes.INTEGER,
       primaryKey: true,

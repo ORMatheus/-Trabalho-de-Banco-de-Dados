@@ -1,6 +1,6 @@
 // models/Produto.js
 module.exports = (sequelize, DataTypes) => {
-  const Produto = sequelize.define('Produto', {
+  const Produto = sequelize.define('produto', {
     ID_Produto: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -10,29 +10,29 @@ module.exports = (sequelize, DataTypes) => {
     Nome_Produto: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      field: 'Nome_Produto'
+      field: 'nome_produto'
     },
    Descrição: { // Caracter especial no nome da coluna [cite: 3]
       type: DataTypes.TEXT,
-      field: 'Descrição'
+      field: 'descrição'
     },
     Preço: { // Caracter especial no nome da coluna [cite: 3]
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       // CHECK (Preço >= 0) é uma constraint do BD, não é replicada no ORM, mas o BD a enforces
-      field: 'Preço'
+      field: 'preco'
     },
     QTD_Estoque: {
       type: DataTypes.INTEGER,
       allowNull: false,
       // CHECK (QTD_Estoque >= 0) é uma constraint do BD
-      field: 'QTD_Estoque'
+      field: 'qtd_estoque'
     },
     Status: {
       type: DataTypes.STRING(20),
       allowNull: false,
       // CHECK (Status IN ('ativo', 'inativo', 'esgotado')) é uma constraint do BD
-      field: 'Status'
+      field: 'status'
     }
   }, {
     tableName: 'produto', // Nome exato da tabela no seu SQL [cite: 3]

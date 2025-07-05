@@ -1,27 +1,27 @@
 // models/Gerente.js
 module.exports = (sequelize, DataTypes) => {
-  const Gerente = sequelize.define('Gerente', {
+  const Gerente = sequelize.define('gerente', {
     ID_Gerente: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: 'ide_gerente'
+      field: 'id_gerente'
     },
     Nome_Gerente: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      field: 'Nome_Gerente'
+      field: 'nome_gerente'
     },
     Email_Gerente: {
       type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
-      field: 'Email_Gerente'
+      field: 'email_gerente'
     },
     Hash_Senha_Gerente: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      field: 'Hash_Senha_Gerente'
+      field: 'hash_senha_gerente'
     }
   }, {
     tableName: 'gerente', // Nome exato da tabela no seu SQL [cite: 9]

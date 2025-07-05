@@ -1,11 +1,11 @@
 // models/Endereco.js
 module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo exportada
-  const Endereco = sequelize.define('Endereco', {
+  const Endereco = sequelize.define('endereco', {
     ID_Endereço: { // Note o uso de 'ç' aqui - certifique-se de que corresponde ao SQL
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: 'Id_endereco' // Mapeia para a coluna no BD
+      field: 'id_endereco' // Mapeia para a coluna no BD
     },
     ID_Cliente: {
       type: DataTypes.INTEGER,
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo e
       allowNull: false,
       field: 'rua'
     },
-    Número: { // Note o uso de 'ú' aqui
+    Numero: { // Note o uso de 'ú' aqui
       type: DataTypes.STRING(10),
       allowNull: false,
       field: 'numero'
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo e
     CEP: {
       type: DataTypes.STRING(10),
       allowNull: false,
-      field: 'CEP'
+      field: 'cep'
     }
   }, {
     tableName: 'endereco', // IMPORTANTE: O nome da tabela deve ser EXATO como no seu SQL

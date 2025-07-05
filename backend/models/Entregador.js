@@ -1,6 +1,6 @@
 // models/Entregador.js
 module.exports = (sequelize, DataTypes) => {
-  const Entregador = sequelize.define('Entregador', {
+  const Entregador = sequelize.define('entregador', {
     ID_Entregador: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     Nome_Entregador: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      field: 'Nome_Entregador'
+      field: 'nome_entregador'
     },
     Telefone_Entregador: {
       type: DataTypes.STRING(15),
       allowNull: false,
       unique: true,
-      field: 'Telefone_Entregador'
+      field: 'telefone_entregador'
     }
   }, {
     tableName: 'entregador', // Nome exato da tabela no seu SQL [cite: 10]

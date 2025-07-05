@@ -1,6 +1,6 @@
 // models/Entrega.js
 module.exports = (sequelize, DataTypes) => {
-  const Entrega = sequelize.define('Entrega', {
+  const Entrega = sequelize.define('entrega', {
     ID_Entrega: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -21,22 +21,22 @@ module.exports = (sequelize, DataTypes) => {
     Data_Envio: {
       type: DataTypes.DATE, // TIMESTAMP no SQL
       allowNull: false,
-      field: 'Data_Envio'
+      field: 'data_envio'
     },
     Data_Previsão_Entrega: { // Caracter especial no nome da coluna [cite: 11]
       type: DataTypes.DATE, // TIMESTAMP no SQL
       allowNull: false,
-      field: 'Data_Previsão_Entrega'
+      field: 'data_previsao_entrega'
     },
     Data_Entrega_Real: {
       type: DataTypes.DATE, // TIMESTAMP no SQL, pode ser NULL [cite: 11]
-      field: 'Data_Entrega_Real'
+      field: 'data_entrega_real'
     },
     Status_Entrega: {
       type: DataTypes.STRING(20),
       allowNull: false,
       // CHECK (Status_Entrega IN ('em trânsito', 'entregue', 'tentativa falha', 'devolvido')) é constraint do BD
-      field: 'Status_Entrega'
+      field: 'status_entrega'
     }
   }, {
     tableName: 'entrega', // Nome exato da tabela no seu SQL [cite: 11]

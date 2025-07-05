@@ -16,13 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE, // TIMESTAMP no SQL, mapeado para DataTypes.DATE no Sequelize
       allowNull: false,
       defaultValue: DataTypes.NOW, // CURRENT_TIMESTAMP no SQL [cite: 6]
-      field: 'Data_Pedido'
+      field: 'data_pedido'
     },
     Status_pedido: {
       type: DataTypes.STRING(20),
       allowNull: false,
       // CHECK (Status_pedido IN ('pendente', 'processando', 'enviado', 'entregue', 'cancelado')) é constraint do BD
-      field: 'Status_pedido'
+      field: 'status_pedido'
     }
   }, {
     tableName: 'pedido', // Nome exato da tabela no seu SQL [cite: 6]
