@@ -39,5 +39,13 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Produto.associate = (models) => {
+  Produto.belongsToMany(models.pedido, { 
+    through: models.item_pedido, 
+    foreignKey: 'id_produto', 
+    as: 'pedidos'
+  });
+};
+
   return Produto;
 };

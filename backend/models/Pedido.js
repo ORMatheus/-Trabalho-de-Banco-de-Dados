@@ -29,5 +29,13 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Pedido.associate= (models)=>{
+    Pedido.belongTo(models.cliente,{
+        through: models.item_pedido,
+        foreignKey: 'id_cliente',
+        as:'cliente'
+    });
+  };
+
   return Pedido;
 };
