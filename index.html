@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregai | Moda Cristã com Propósito</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gray-900 font-display">
+                PREGAI
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#inicio" class="text-gray-600 hover:text-yellow-700 transition duration-300">Início</a>
+                <a href="#sobre" class="text-gray-600 hover:text-yellow-700 transition duration-300">Nossa Missão</a>
+                <a href="#colecao" class="text-gray-600 hover:text-yellow-700 transition duration-300">Coleção</a>
+                <a href="#contato" class="text-gray-600 hover:text-yellow-700 transition duration-300">Contato</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#inicio" class="block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100">Início</a>
+            <a href="#sobre" class="block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100">Nossa Missão</a>
+            <a href="#colecao" class="block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100">Coleção</a>
+            <a href="#contato" class="block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100">Contato</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero -->
+        <section id="inicio" class="hero-bg text-white h-[85vh] flex items-center justify-center">
+            <div class="bg-black bg-opacity-50 p-10 rounded-lg text-center">
+                <h1 class="text-4xl md:text-6xl font-bold font-display mb-4">Vista sua Fé com Estilo.</h1>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Roupas que expressam sua crença e inspiram conversas sobre o Evangelho.</p>
+                <a href="#colecao" class="bg-white text-gray-900 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
+                    CONHEÇA A COLEÇÃO
+                </a>
+            </div>
+        </section>
+
+        <!-- Seção Sobre / Missão -->
+        <section id="sobre" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold font-display mb-4 text-gray-900">Nossa Missão</h2>
+                <div class="w-24 h-1 bg-yellow-600 mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+                    A <span class="font-bold">Pregai</span> nasceu do desejo de unir moda e propósito. Acreditamos que cada peça de roupa pode ser uma ferramenta para exaltar a Cristo e semear a Palavra de Deus. Nossa missão é criar roupas modernas e de alta qualidade que permitam que você vista sua fé de forma autêntica e relevante, abrindo portas para o evangelismo no seu dia a dia.
+                </p>
+            </div>
+        </section>
+
+        <!-- Seção Coleção -->
+        <section id="colecao" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold font-display text-center mb-12 text-gray-900">Nova Coleção: Atributos</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <!-- Produto 1 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
+                        <div class="overflow-hidden">
+                            <img src="https://placehold.co/600x750/f9fafb/374151?text=Moletom+Atos+1%3A8" alt="Moletom Atos 1:8" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-bold mb-2">Moletom 'Atos 1:8'</h3>
+                            <p class="text-gray-600 mb-4">Receba o poder do Espírito Santo.</p>
+                        </div>
+                    </div>
+                    <!-- Produto 2 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
+                        <div class="overflow-hidden">
+                           <img src="https://placehold.co/600x750/111827/e5e7eb?text=Pedra+Angular" alt="Camiseta Pedra Angular" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-bold mb-2">Camiseta 'Pedra Angular'</h3>
+                            <p class="text-gray-600 mb-4">Ele é a rocha inabalável, nosso fundamento.</p>
+                        </div>
+                    </div>
+                    <!-- Produto 3 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
+                         <div class="overflow-hidden">
+                           <img src="https://placehold.co/600x750/fefce8/f97316?text=Sol+da+Justiça" alt="Camiseta Sol da Justiça" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-bold mb-2">Camiseta 'Sol da Justiça'</h3>
+                            <p class="text-gray-600 mb-4">O astro que traz cura em suas asas.</p>
+                        </div>
+                    </div>
+                     <!-- Produto 4 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden group">
+                         <div class="overflow-hidden">
+                           <img src="https://placehold.co/600x750/e0f2fe/0ea5e9?text=Grow+in+Grace" alt="Camiseta Grow in Grace" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-bold mb-2">Camiseta 'Grow in Grace'</h3>
+                            <p class="text-gray-600 mb-4">Cresça na graça e no conhecimento.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="text-center mt-12">
+                     <a href="#" class="bg-gray-800 text-white font-bold py-3 px-8 rounded-full hover:bg-gray-900 transition duration-300">
+                        VER TODOS OS PRODUTOS
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Depoimentos -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold font-display text-center mb-12 text-gray-900">O que nossos clientes dizem</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <p class="text-gray-600 mb-4">"As camisetas são de ótima qualidade e a mensagem é poderosa. Já fui parado na rua para falarem da estampa. Exatamente o que eu procurava!"</p>
+                        <p class="font-bold text-gray-900">- Lucas M.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <p class="text-gray-600 mb-4">"Amei meu moletom! É super estiloso e confortável. Sinto que estou levando uma mensagem de esperança por onde passo. Recomendo demais!"</p>
+                        <p class="font-bold text-gray-900">- Juliana P.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold font-display mb-4">PREGAI</h2>
+                <p class="mb-8">Siga-nos e faça parte desta missão.</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="#" class="hover:text-yellow-500 transition duration-300">Instagram</a>
+                    <a href="#" class="hover:text-yellow-500 transition duration-300">Facebook</a>
+                    <a href="#" class="hover:text-yellow-500 transition duration-300">WhatsApp</a>
+                </div>
+                <p class="text-gray-400 text-sm">&copy; 2024 Pregai. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Script para o menu mobile
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fechar menu mobile ao clicar em um link
+        const mobileLinks = mobileMenu.getElementsByTagName('a');
+        for (let link of mobileLinks) {
+            link.addEventListener('click', () => {
+                 mobileMenu.classList.add('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
