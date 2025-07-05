@@ -1,5 +1,5 @@
-// controllers/clienteController.js
-const db = require('../models'); // Importa seus modelos
+
+const db = require('../models'); 
 
 exports.getAllClientes = async (req, res) => {
   try {
