@@ -1,3 +1,4 @@
+const { FOREIGNKEYS } = require("sequelize/lib/query-types");
 
 module.exports = (sequelize, DataTypes) => {
   const Cliente = sequelize.define('cliente', {
@@ -33,6 +34,15 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
+  Cliente.associate = (models) => {
+    // Um Cliente TEM MUITOS Pedidos
+    Cliente.hasMany(models.pedido, { 
+      foreignKey: 'ID_Cliente', 
+      as: 'pedidos' 
+    });
+  };
 
   return Cliente;
 };
+
+
