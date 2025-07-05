@@ -107,3 +107,50 @@ async function run() {
 }
 
 run();
+
+
+
+
+// app.js
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors'); // Importa o pacote cors
+const db = require('./models'); // Importa seus modelos Sequelize
+
+const app = express();
+const PORT = process.env.PORT || 3000; // Define a porta do servidor
+
+// Middlewares
+app.use(express.json()); // Permite que o Express leia JSON do corpo da requisição
+app.use(cors()); // Habilita CORS para todas as rotas, permitindo acesso do frontend
+
+// Importar e usar as rotas
+const clienteRoutes = require('./routes/clienteRoutes');
+const produtoRoutes = require('./routes/produtoRoutes');
+// ... importar outras rotas ...
+
+app.use('/api/clientes', clienteRoutes);
+app.use('/api/produtos', produtoRoutes);
+// ... usar outras rotas com seus respectivos prefixos ...
+
+// Rota de teste simples
+app.get('/', (req, res) => {
+  res.send('API de Loja Online funcionando!');
+});
+
+// Testar conexão com o banco de dados e iniciar o servidor
+async function startServer() {
+  try {
+    await db.sequelize.authenticate();
+    console.log('Conexão com o banco de dados estabelecida com sucesso via Sequelize.');
+
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+      console.log(`Acesse: http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Erro ao conectar ao banco de dados ou iniciar o servidor:', error);
+  }
+}
+
+startServer();
