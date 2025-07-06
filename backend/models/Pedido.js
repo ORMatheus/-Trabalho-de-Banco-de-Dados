@@ -1,55 +1,33 @@
-
+// models/Pedido.js
 module.exports = (sequelize, DataTypes) => {
   const Pedido = sequelize.define('pedido', {
-    id_pedido: {
+    ID_Pedido: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       field: 'id_pedido'
     },
-    id_cliente: {
+    ID_Cliente: {
       type: DataTypes.INTEGER,
       allowNull: false,
       field: 'id_cliente'
     },
-    data_pedido: {
+    Data_Pedido: {
       type: DataTypes.DATE, // TIMESTAMP no SQL, mapeado para DataTypes.DATE no Sequelize
       allowNull: false,
-      defaultValue: DataTypes.NOW, 
+      defaultValue: DataTypes.NOW, // CURRENT_TIMESTAMP no SQL [cite: 6]
       field: 'data_pedido'
     },
-    status_pedido: {
+    Status_pedido: {
       type: DataTypes.STRING(20),
       allowNull: false,
       // CHECK (Status_pedido IN ('pendente', 'processando', 'enviado', 'entregue', 'cancelado')) é constraint do BD
       field: 'status_pedido'
     }
   }, {
-    tableName: 'pedido', 
+    tableName: 'pedido', // Nome exato da tabela no seu SQL [cite: 6]
     timestamps: false
   });
-
-  
-Pedido.associate = (models) => {
-  // Relação: Um Pedido PERTENCE A UM Cliente
-  Pedido.belongsTo(models.cliente, {
-    foreignKey: 'id_cliente',
-    as: 'cliente'
-  });
-
-  // Relação: Um Pedido TEM UMA Entrega
-  Pedido.hasOne(models.entrega, { // Nome do model em Entrega.js
-    foreignKey: 'id_pedido', // Chave estrangeira em entrega
-    as: 'entrega'
-  });
-
-  // Relação Muitos-para-Muitos: Pedido <-> Produto
-  Pedido.belongsToMany(models.produto, {
-    through: models.item_pedido, // A tabela "ponte"
-    foreignKey: 'id_pedido',     // Chave estrangeira em item_pedido
-    as: 'produtos'
-  });
-};
 
   return Pedido;
 };

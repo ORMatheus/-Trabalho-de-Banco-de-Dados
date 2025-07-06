@@ -1,55 +1,42 @@
-const { FOREIGNKEYS } = require("sequelize/lib/query-types");
-
+// models/Cliente.js
 module.exports = (sequelize, DataTypes) => {
   const Cliente = sequelize.define('cliente', {
-    id_cliente: {
+    ID_Cliente: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       field: 'id_cliente' // Garante que o nome da coluna no BD seja respeitado
     },
-    nome: {
+    Nome: {
       type: DataTypes.STRING(100),
       allowNull: false,
       field: 'nome'
     },
-    email: {
+    Email: {
       type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
       field: 'email'
     },
-    hash_senha: {
+    Hash_Senha: {
       type: DataTypes.STRING(255),
       allowNull: false,
       field: 'hash_senha'
     },
-    telefone: {
+    Telefone: {
       type: DataTypes.STRING(15),
       field: 'telefone'
     }
   }, {
-    tableName: 'cliente', 
-    timestamps: false 
+    tableName: 'cliente', // Nome exato da tabela no seu SQL
+    timestamps: false // Desabilita createdAt e updatedAt
   });
 
-
-Cliente.associate = (models) => {
-  // Relação: Um Cliente TEM MUITOS Endereços
-  Cliente.hasMany(models.endereco, {
-    foreignKey: 'ID_Cliente', // Chave estrangeira em Endereco
-    as: 'enderecos'
-  });
-
-  // Relação: Um Cliente TEM MUITOS Pedidos
-  Cliente.hasMany(models.pedido, { // 'pedido' será o nome do model em Pedido.js
-    foreignKey: 'ID_Cliente', // Chave estrangeira em Pedido
-    as: 'pedidos'
-  });
-};
-
+  // Opcional: Você pode definir associações aqui ou em index.js
+  // Cliente.associate = (models) => {
+  //   Cliente.hasMany(models.Endereco, { foreignKey: 'ID_Cliente', as: 'enderecos' });
+  //   Cliente.hasMany(models.Pedido, { foreignKey: 'ID_Cliente', as: 'pedidos' });
+  // };
 
   return Cliente;
 };
-
-

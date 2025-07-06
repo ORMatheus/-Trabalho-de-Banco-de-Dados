@@ -1,13 +1,13 @@
-
+// models/ImagensProduto.js
 module.exports = (sequelize, DataTypes) => {
-  const ImagensProduto = sequelize.define('imagens_produto', { 
-    id_imagem: {
+  const ImagensProduto = sequelize.define('imagens_produto', { // Use 'Imagens_Produto' para o modelo
+    ID_Imagem: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       field: 'id_imagem'
     },
-    id_produto: {
+    ID_Produto: {
       type: DataTypes.INTEGER,
       allowNull: false,
       field: 'id_produto'
@@ -18,17 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       field: 'url_imagem'
     }
   }, {
-    tableName: 'imagens_produto', 
+    tableName: 'imagens_produto', // Nome exato da tabela no seu SQL [cite: 5]
     timestamps: false
   });
-
- 
-ImagensProduto.associate = (models) => {
-  ImagensProduto.belongsTo(models.produto, {
-    foreignKey: 'id_produto', // Chave estrangeira nesta tabela
-    as: 'produto'
-  });
-};
 
   return ImagensProduto;
 };

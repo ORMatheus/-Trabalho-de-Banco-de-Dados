@@ -1,34 +1,27 @@
-
+// models/Entregador.js
 module.exports = (sequelize, DataTypes) => {
   const Entregador = sequelize.define('entregador', {
-    id_entregador: {
+    ID_Entregador: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       field: 'id_entregador'
     },
-    nome_entregador: {
+    Nome_Entregador: {
       type: DataTypes.STRING(100),
       allowNull: false,
       field: 'nome_entregador'
     },
-    telefone_entregador: {
+    Telefone_Entregador: {
       type: DataTypes.STRING(15),
       allowNull: false,
       unique: true,
       field: 'telefone_entregador'
     }
   }, {
-    tableName: 'entregador', 
+    tableName: 'entregador', // Nome exato da tabela no seu SQL [cite: 10]
+    timestamps: false
   });
-
-
-Entregador.associate = (models) => {
-  Entregador.hasMany(models.entrega, {
-    foreignKey: 'id_entregador', // Chave estrangeira em entrega
-    as: 'entregas'
-  });
-};
 
   return Entregador;
 }

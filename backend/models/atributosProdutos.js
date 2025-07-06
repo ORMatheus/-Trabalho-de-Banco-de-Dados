@@ -1,6 +1,6 @@
-
+// models/AtributosProduto.js
 module.exports = (sequelize, DataTypes) => {
-  const Atributos_Produto = sequelize.define('atributos_produto', { 
+  const Atributos_Produto = sequelize.define('atributos_produto', { // Use 'Atributos_Produto' para o modelo
     ID_Atributo: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -23,17 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       field: 'valor_atributo'
     }
   }, {
-    tableName: 'atributos_produto', 
+    tableName: 'atributos_produto', // Nome exato da tabela no seu SQL [cite: 4]
     timestamps: false
   });
-
- 
-Atributos_Produto.associate = (models) => {
-  Atributos_Produto.belongsTo(models.produto, {
-    foreignKey: 'id_produto', // Chave estrangeira nesta tabela
-    as: 'produto'
-  });
-};
 
   return Atributos_Produto;
 };

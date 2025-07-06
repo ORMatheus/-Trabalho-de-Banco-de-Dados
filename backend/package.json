@@ -16,5 +16,8 @@
     "url": "https://github.com/ORMatheus/-Trabalho-de-Banco-de-Dados/issues"
   },
   "homepage": "https://github.com/ORMatheus/-Trabalho-de-Banco-de-Dados#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0"
+  }
 }
