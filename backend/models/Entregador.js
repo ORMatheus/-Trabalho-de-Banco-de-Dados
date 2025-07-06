@@ -23,5 +23,12 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Entregador.associate = (models) => {
+  // Um Entregador TEM MUITAS Entregas
+  Entregador.hasMany(models.entrega, {
+    foreignKey: 'ID_Entregador',
+    as: 'entregas'
+  });
+};
   return Entregador;
 }

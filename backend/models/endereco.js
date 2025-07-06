@@ -47,10 +47,12 @@ module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo e
     timestamps: false // Você não tem colunas createdAt/updatedAt no SQL
   });
 
-  // Opcional: Se houver associações específicas para este modelo, podem ser definidas aqui
-  // Endereco.associate = (models) => {
-  //   Endereco.belongsTo(models.Cliente, { foreignKey: 'ID_Cliente', as: 'cliente' });
-  // };
-
+  Endereco.associate = (models) => {
+  // Um Endereço PERTENCE A UM Cliente
+  Endereco.belongsTo(models.cliente, {
+    foreignKey: 'ID_Cliente',
+    as: 'cliente'
+  });
+};
   return Endereco;
 };

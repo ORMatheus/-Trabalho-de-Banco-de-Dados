@@ -43,5 +43,17 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Entrega.associate = (models) => {
+  // Uma Entrega PERTENCE A UM Pedido
+  Entrega.belongsTo(models.pedido, {
+    foreignKey: 'ID_Pedido',
+    as: 'pedido'
+  });
+  // Uma Entrega PERTENCE A UM Entregador
+  Entrega.belongsTo(models.entregador, {
+    foreignKey: 'ID_Entregador',
+    as: 'entregador'
+  });
+};
   return Entrega;
 };

@@ -27,5 +27,12 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Atributos_Produto.associate = (models) => {
+  // Um Atributo PERTENCE A UM Produto
+  Atributos_Produto.belongsTo(models.produto, {
+    foreignKey: 'ID_Produto',
+    as: 'produto'
+  });
+};
   return Atributos_Produto;
 };

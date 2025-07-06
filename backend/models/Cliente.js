@@ -32,11 +32,17 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false // Desabilita createdAt e updatedAt
   });
 
-  // Opcional: Você pode definir associações aqui ou em index.js
-  // Cliente.associate = (models) => {
-  //   Cliente.hasMany(models.Endereco, { foreignKey: 'ID_Cliente', as: 'enderecos' });
-  //   Cliente.hasMany(models.Pedido, { foreignKey: 'ID_Cliente', as: 'pedidos' });
-  // };
-
+  Cliente.associate = (models) => {
+  // Um Cliente TEM MUITOS Endereços
+  Cliente.hasMany(models.endereco, {
+    foreignKey: 'ID_Cliente',
+    as: 'enderecos'
+  });
+  // Um Cliente TEM MUITOS Pedidos
+  Cliente.hasMany(models.pedido, {
+    foreignKey: 'ID_Cliente',
+    as: 'pedidos'
+  });
+};
   return Cliente;
 };

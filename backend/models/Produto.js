@@ -39,5 +39,24 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Produto.associate = (models) => {
+  // Relação Muitos-para-Muitos: Produto <-> Pedido
+  Produto.belongsToMany(models.pedido, {
+    through: models.item_pedido,      // Através da tabela item_pedido
+    foreignKey: 'ID_Produto',
+    as: 'pedidos'
+  });
+  // Um Produto TEM MUITOS Atributos
+  Produto.hasMany(models.atributos_produto, {
+    foreignKey: 'ID_Produto',
+    as: 'atributos'
+  });
+  // Um Produto TEM MUITAS Imagens
+  Produto.hasMany(models.imagens_produto, {
+    foreignKey: 'ID_Produto',
+    as: 'imagens'
+  });
+};
+
   return Produto;
 };
