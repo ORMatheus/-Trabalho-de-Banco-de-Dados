@@ -2,93 +2,134 @@
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-const db = require('./models'); // Importa o objeto db (com sequelize e modelos)
+const multer = require('multer');
+const path = require('path');
+const db = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // --- Middlewares ---
-// Habilita o CORS para permitir que o frontend (em outra origem) aceda à API
 app.use(cors());
-// Permite que o Express interprete o corpo das requisições como JSON
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
+// --- Configuração do Multer ---
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
+});
+const upload = multer({ storage: storage });
 
 // --- Rotas da API ---
 
-// Rota de teste
-app.get('/api', (req, res) => {
-  res.json({ message: 'Bem-vindo à API da loja Pregai!' });
+// Rota de Cadastro de Cliente
+app.post('/api/clientes', async (req, res) => {
+    try {
+        const { Nome, Email, Hash_Senha, Telefone } = req.body;
+        if (!Nome || !Email || !Hash_Senha) {
+            return res.status(400).json({ message: 'Nome, email e senha são obrigatórios.' });
+        }
+        const clienteExistente = await db.cliente.findOne({ where: { Email: Email } });
+        if (clienteExistente) {
+            return res.status(409).json({ message: 'Este email já está cadastrado.' });
+        }
+        const senhaHasheada = await bcrypt.hash(Hash_Senha, 10);
+        const novoCliente = await db.cliente.create({
+            Nome,
+            Email,
+            Hash_Senha: senhaHasheada,
+            Telefone
+        });
+        const clienteParaRetorno = novoCliente.toJSON();
+        delete clienteParaRetorno.Hash_Senha;
+        res.status(201).json(clienteParaRetorno);
+    } catch (error) {
+        console.error('Erro ao criar cliente:', error);
+        res.status(500).json({ message: 'Ocorreu um erro no servidor.' });
+    }
 });
 
-/**
- * Rota para criar um novo cliente.
- * Recebe: { Nome, Email, Hash_Senha (senha em texto puro), Telefone }
- * Retorna: O objeto do cliente criado (sem a senha) ou uma mensagem de erro.
- */
-app.post('/api/clientes', async (req, res) => {
-  try {
-    const { Nome, Email, Hash_Senha, Telefone } = req.body;
-
-    // Validação básica dos dados recebidos
-    if (!Nome || !Email || !Hash_Senha) {
-      return res.status(400).json({ message: 'Nome, email e senha são obrigatórios.' });
+// Rota de Cadastro de Produto
+app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
+    const t = await db.sequelize.transaction();
+    try {
+        const { nome_produto, descricao, preco, qtd_estoque, cor, tamanho } = req.body;
+        if (!req.file) {
+            return res.status(400).json({ message: 'A imagem do produto é obrigatória.' });
+        }
+        const novoProduto = await db.produto.create({
+            nome_produto,
+            descricao,
+            preco,
+            qtd_estoque
+        }, { transaction: t });
+        await db.atributos_produto.create({
+            id_produto: novoProduto.id_produto,
+            tipo_atributo: 'Cor',
+            valor_atributo: cor
+        }, { transaction: t });
+        await db.atributos_produto.create({
+            id_produto: novoProduto.id_produto,
+            tipo_atributo: 'Tamanho',
+            valor_atributo: tamanho
+        }, { transaction: t });
+        const imageUrl = `/uploads/${req.file.filename}`;
+        await db.imagens_produto.create({
+            id_produto: novoProduto.id_produto,
+            url_imagem: imageUrl
+        }, { transaction: t });
+        await t.commit();
+        res.status(201).json(novoProduto);
+    } catch (error) {
+        await t.rollback();
+        console.error('Erro ao criar produto:', error);
+        res.status(500).json({ message: 'Ocorreu um erro no servidor ao criar o produto.' });
     }
+});
 
-    // Verifica se o cliente já existe
-    // CORREÇÃO: Alterado de db.Cliente para db.cliente (minúsculo)
-    const clienteExistente = await db.cliente.findOne({ where: { Email: Email } });
-    if (clienteExistente) {
-      return res.status(409).json({ message: 'Este email já está cadastrado.' });
+// NOVA Rota para Buscar todos os Produtos
+app.get('/api/produtos', async (req, res) => {
+    try {
+        const produtos = await db.produto.findAll({
+            include: [
+                {
+                    model: db.imagens_produto,
+                    as: 'imagens',
+                    attributes: ['url_imagem']
+                },
+                {
+                    model: db.atributos_produto,
+                    as: 'atributos',
+                    attributes: ['tipo_atributo', 'valor_atributo']
+                }
+            ],
+            order: [['id_produto', 'DESC']] // Mostra os mais recentes primeiro
+        });
+        res.status(200).json(produtos);
+    } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+        res.status(500).json({ message: 'Ocorreu um erro no servidor ao buscar os produtos.' });
     }
-
-    // Gera um hash seguro para a senha antes de guardar na base de dados
-    const senhaHasheada = await bcrypt.hash(Hash_Senha, 10);
-
-    // Cria o novo cliente na base de dados
-    // CORREÇÃO: Alterado de db.Cliente para db.cliente (minúsculo)
-    const novoCliente = await db.cliente.create({
-      Nome,
-      Email,
-      Hash_Senha: senhaHasheada, // Guarda a senha com hash
-      Telefone
-    });
-
-    // Remove a senha do objeto de resposta por segurança
-    const clienteParaRetorno = novoCliente.toJSON();
-    delete clienteParaRetorno.Hash_Senha;
-
-    // Retorna o cliente criado com status 201 (Created)
-    res.status(201).json(clienteParaRetorno);
-
-  } catch (error) {
-    console.error('Erro ao criar cliente:', error);
-    // Verifica se é um erro de validação do Sequelize
-    if (error.name === 'SequelizeValidationError') {
-      const messages = error.errors.map(err => err.message);
-      return res.status(400).json({ message: 'Erro de validação', errors: messages });
-    }
-    // Retorna um erro genérico do servidor
-    res.status(500).json({ message: 'Ocorreu um erro no servidor ao tentar criar o cliente.' });
-  }
 });
 
 
 // --- Inicialização do Servidor ---
 async function startServer() {
-  try {
-    // Testa a conexão com a base de dados
-    await db.sequelize.authenticate();
-    console.log('Conexão com a base de dados estabelecida com sucesso.');
-
-    // Inicia o servidor Express
-    app.listen(PORT, () => {
-      console.log(`Servidor a correr na porta ${PORT}`);
-      console.log(`Acesse a API em http://localhost:${PORT}/api`);
-    });
-  } catch (error) {
-    console.error('Não foi possível conectar à base de dados:', error);
-    process.exit(1); // Encerra o processo se não conseguir conectar à base de dados
-  }
+    try {
+        await db.sequelize.authenticate();
+        console.log('Conexão com a base de dados estabelecida com sucesso.');
+        app.listen(PORT, () => {
+            console.log(`Servidor a correr na porta ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Não foi possível conectar à base de dados:', error);
+        process.exit(1);
+    }
 }
 
 startServer();
