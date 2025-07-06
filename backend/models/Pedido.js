@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     Data_Pedido: {
       type: DataTypes.DATE, // TIMESTAMP no SQL, mapeado para DataTypes.DATE no Sequelize
       allowNull: false,
-      defaultValue: DataTypes.NOW, // CURRENT_TIMESTAMP no SQL [cite: 6]
+      defaultValue: DataTypes.NOW, // CURRENT_TIMESTAMP no SQL 
       field: 'data_pedido'
     },
     Status_pedido: {
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'status_pedido'
     }
   }, {
-    tableName: 'pedido', // Nome exato da tabela no seu SQL [cite: 6]
+    tableName: 'pedido', 
     timestamps: false
   });
 

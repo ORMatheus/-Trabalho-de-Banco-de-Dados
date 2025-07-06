@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo e
       allowNull: false,
       field: 'rua'
     },
-    Numero: { // Note o uso de 'ú' aqui
+    Numero: { 
       type: DataTypes.STRING(10),
       allowNull: false,
       field: 'numero'
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo e
       field: 'cep'
     }
   }, {
-    tableName: 'endereco', // IMPORTANTE: O nome da tabela deve ser EXATO como no seu SQL
+    tableName: 'endereco', 
     timestamps: false // Você não tem colunas createdAt/updatedAt no SQL
   });
 

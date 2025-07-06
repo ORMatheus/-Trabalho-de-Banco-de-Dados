@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'preco_unidade'
     }
   }, {
-    tableName: 'item_pedido', // Nome exato da tabela no seu SQL [cite: 7]
+    tableName: 'item_pedido', 
     timestamps: false
   });
 

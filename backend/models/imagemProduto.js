@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'url_imagem'
     }
   }, {
-    tableName: 'imagens_produto', // Nome exato da tabela no seu SQL [cite: 5]
+    tableName: 'imagens_produto',
     timestamps: false
   });
 
