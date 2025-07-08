@@ -1,63 +1,71 @@
-// admin-editar-adm.js
+// admin-listar-adms.js
 document.addEventListener('DOMContentLoaded', () => {
     const API_BASE_URL = 'http://localhost:3000/api';
-    const form = document.getElementById('form-editar');
-    const formMessage = document.getElementById('formMessage');
-    const params = new URLSearchParams(window.location.search);
-    const admId = params.get('id');
+    const tbody = document.getElementById('lista-adms');
 
-    if (!admId) {
-        window.location.href = 'admin-listar-adms.html';
-        return;
-    }
-
-    // 1. Carregar dados existentes no formulário
-    async function carregarDadosAdm() {
+    // Função para carregar os administradores na tabela
+    async function carregarAdms() {
         try {
-            const response = await fetch(`${API_BASE_URL}/adms/${admId}`);
-            const adm = await response.json();
-            document.getElementById('nome').value = adm.Nome_Admin;
-            document.getElementById('email').value = adm.Email_Admin;
-        } catch (error) {
-            formMessage.textContent = 'Erro ao carregar dados do administrador.';
-            formMessage.className = 'message error';
-        }
-    }
-
-    // 2. Lógica de envio do formulário
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-
-        // Não enviar a senha se o campo estiver vazio
-        if (!data.Hash_Senha_Admin) {
-            delete data.Hash_Senha_Admin;
-        }
-
-        try {
-            const response = await fetch(`${API_BASE_URL}/adms/${admId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            const result = await response.json();
-            if (response.ok) {
-                formMessage.textContent = result.message;
-                formMessage.className = 'message success';
-            } else {
-                formMessage.textContent = `Erro: ${result.message}`;
-                formMessage.className = 'message error';
+            const response = await fetch(`${API_BASE_URL}/adms`);
+            if (!response.ok) {
+                throw new Error('Falha ao carregar a lista de administradores.');
             }
+            const adms = await response.json();
+
+            tbody.innerHTML = ''; // Limpa a tabela antes de preencher
+
+            if (adms.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4">Nenhum administrador encontrado.</td></tr>';
+                return;
+            }
+
+            adms.forEach(adm => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b hover:bg-gray-50';
+                
+                // PONTO CRÍTICO DA CORREÇÃO:
+                // A linha abaixo cria o link de "Editar" corretamente, incluindo o ID do administrador na URL.
+                tr.innerHTML = `
+                    <td class="py-3 px-4">${adm.ID_Admin}</td>
+                    <td class="py-3 px-4">${adm.Nome_Admin}</td>
+                    <td class="py-3 px-4">${adm.Email_Admin}</td>
+                    <td class="py-3 px-4">
+                        <a href="admin-editar-adm.html?id=${adm.ID_Admin}" class="text-blue-600 hover:text-blue-800 font-semibold">Editar</a>
+                        <button data-id="${adm.ID_Admin}" class="text-red-600 hover:text-red-800 font-semibold ml-4 btn-excluir">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         } catch (error) {
-            formMessage.textContent = 'Erro de conexão ao salvar.';
-            formMessage.className = 'message error';
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center text-red-500 py-4">${error.message}</td></tr>`;
+        }
+    }
+
+    // Lógica para o botão de exclusão
+    tbody.addEventListener('click', async (e) => {
+        if (e.target.classList.contains('btn-excluir')) {
+            const id = e.target.dataset.id;
+            
+            if (confirm(`Tem certeza que deseja excluir o administrador com ID ${id}?`)) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/adms/${id}`, {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        // Recarrega a lista para refletir a exclusão
+                        carregarAdms();
+                    } else {
+                        const result = await response.json();
+                        alert(`Erro ao excluir: ${result.message}`);
+                    }
+                } catch (error) {
+                    alert('Erro de conexão ao tentar excluir.');
+                }
+            }
         }
     });
 
-     <td class="py-2 px-4">
-        <a href="admin-editar-adm.html?id=${adm.ID_Admin}" class="text-blue-500 hover:underline">Editar</a>
-        ... // botão de excluir
-    </td>
-    carregarDadosAdm();
+    // Carrega a lista de administradores ao abrir a página
+    carregarAdms();
 });
