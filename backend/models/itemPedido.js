@@ -1,4 +1,4 @@
-
+// models/ItemPedido.js
 module.exports = (sequelize, DataTypes) => {
   const ItemPedido = sequelize.define('item_pedido', { // Use 'Item_Pedido' para o modelo
     ID_Item_Pedido: {
@@ -23,17 +23,16 @@ module.exports = (sequelize, DataTypes) => {
       // CHECK (QTD > 0) é constraint do BD
       field: 'qtd'
     },
-    Preço_unidade: { 
+    Preço_unidade: { // Caracter especial no nome da coluna [cite: 7]
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       // CHECK (Preço_unidade >= 0) é constraint do BD
       field: 'preco_unidade'
     }
   }, {
-    tableName: 'item_pedido', 
+    tableName: 'item_pedido', // Nome exato da tabela no seu SQL [cite: 7]
     timestamps: false
   });
 
-   
   return ItemPedido;
 };

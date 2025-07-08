@@ -1,4 +1,4 @@
-
+// controllers/produtoController.js
 const db = require('../models');
 
 /**
@@ -9,7 +9,7 @@ exports.createProduto = async (req, res) => {
     // A transação garante que todas as operações sejam bem-sucedidas, ou nenhuma será.
     const t = await db.sequelize.transaction();
     try {
-        
+        // Os dados do formulário vêm em req.body
         const { nome_produto, descricao, preco, qtd_estoque, status, cor, tamanho } = req.body;
 
         // O middleware 'multer' processou a imagem e a colocou em req.file
@@ -17,7 +17,7 @@ exports.createProduto = async (req, res) => {
             return res.status(400).json({ message: 'A imagem do produto é obrigatória.' });
         }
 
-        
+        // 1. Cria o produto na tabela 'produto'
         const novoProduto = await db.produto.create({
             Nome_Produto: nome_produto,
             Descricao: descricao,
@@ -26,7 +26,7 @@ exports.createProduto = async (req, res) => {
              Status: 'ativo'
         }, { transaction: t });
 
-        
+        // 2. Cria os atributos (cor e tamanho) na tabela 'atributos_produto'
         if (cor) {
             await db.atributos_produto.create({
                 ID_Produto: novoProduto.ID_Produto,
@@ -49,12 +49,12 @@ exports.createProduto = async (req, res) => {
             URL_Img: imageUrl
         }, { transaction: t });
         
-        
+        // Confirma todas as operações se não houver erros
         await t.commit();
         res.status(201).json(novoProduto);
 
     } catch (error) {
-        
+        // Desfaz todas as operações em caso de erro
         await t.rollback();
         console.error('Erro ao criar produto:', error);
         res.status(500).json({ message: 'Ocorreu um erro no servidor ao criar o produto.' });

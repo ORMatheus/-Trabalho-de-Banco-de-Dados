@@ -1,3 +1,4 @@
+// controllers/entregadorController.js
 const db = require('../models');
 
 exports.createEntregador = async (req, res) => {

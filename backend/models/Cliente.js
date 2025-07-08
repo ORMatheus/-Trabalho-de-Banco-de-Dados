@@ -1,4 +1,4 @@
-
+// models/Cliente.js
 module.exports = (sequelize, DataTypes) => {
   const Cliente = sequelize.define('cliente', {
     ID_Cliente: {
@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false // Desabilita createdAt e updatedAt
   });
 
+  // Opcional: Você pode definir associações aqui ou em index.js
+  // Cliente.associate = (models) => {
+  //   Cliente.hasMany(models.Endereco, { foreignKey: 'ID_Cliente', as: 'enderecos' });
+  //   Cliente.hasMany(models.Pedido, { foreignKey: 'ID_Cliente', as: 'pedidos' });
+  // };
 
   return Cliente;
 };

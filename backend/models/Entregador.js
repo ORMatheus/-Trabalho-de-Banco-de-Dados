@@ -1,4 +1,4 @@
-
+// models/Entregador.js
 module.exports = (sequelize, DataTypes) => {
   const Entregador = sequelize.define('entregador', {
     ID_Entregador: {
@@ -19,16 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       field: 'telefone_entregador'
     }
   }, {
-    tableName: 'entregador',
+    tableName: 'entregador', // Nome exato da tabela no seu SQL [cite: 10]
     timestamps: false
   });
 
-  Entregador.associate = (models) => {
-  // Um Entregador TEM MUITAS Entregas
-  Entregador.hasMany(models.entrega, {
-    foreignKey: 'ID_Entregador',
-    as: 'entregas'
-  });
-};
   return Entregador;
 }

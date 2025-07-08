@@ -1,4 +1,4 @@
-
+// models/Gerente.js
 module.exports = (sequelize, DataTypes) => {
   const Gerente = sequelize.define('gerente', {
     ID_Gerente: {
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'hash_senha_gerente'
     }
   }, {
-    tableName: 'gerente', 
+    tableName: 'gerente', // Nome exato da tabela no seu SQL [cite: 9]
     timestamps: false
   });
 

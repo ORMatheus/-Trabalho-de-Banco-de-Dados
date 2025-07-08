@@ -1,4 +1,4 @@
-
+// models/ADM.js
 module.exports = (sequelize, DataTypes) => {
   const ADM = sequelize.define('adm', {
     ID_Admin: {
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'hash_senha_admin'
     }
   }, {
-    tableName: 'adm', 
+    tableName: 'adm', // Nome exato da tabela no seu SQL [cite: 8]
     timestamps: false
   });
 

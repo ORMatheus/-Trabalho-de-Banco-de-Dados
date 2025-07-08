@@ -1,4 +1,4 @@
-
+// models/Produto.js
 module.exports = (sequelize, DataTypes) => {
   const Produto = sequelize.define('produto', {
     ID_Produto: {
@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'nome_produto'
     },
-   Descricao: { 
+   Descricao: { // Caracter especial no nome da coluna 
       type: DataTypes.TEXT,
       field: 'descricao'
     },
-    Preço: { 
+    Preço: { // Caracter especial no nome da coluna 
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       // CHECK (Preço >= 0) é uma constraint do BD, não é replicada no ORM, mas o BD a enforces
@@ -35,10 +35,9 @@ module.exports = (sequelize, DataTypes) => {
       field: 'status'
     }
   }, {
-    tableName: 'produto', 
+    tableName: 'produto', // Nome exato da tabela no seu SQL [cite: 3]
     timestamps: false
   });
 
-  
   return Produto;
 };

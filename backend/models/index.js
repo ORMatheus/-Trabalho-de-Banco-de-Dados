@@ -25,12 +25,12 @@ fs
     );
   })
   .forEach(file => {
-    
+    // Importa cada modelo e o inicializa com a instância do sequelize
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
 
-
+// Associa os modelos se houver um método 'associate' definido neles
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

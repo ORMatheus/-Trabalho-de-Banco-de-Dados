@@ -21,7 +21,7 @@ const seedModel = (modelName, data) => async (req, res) => {
     }
 };
 
-
+// Exporta uma função de seed para cada modelo
 exports.seedCliente = seedModel('cliente', {
     Nome: `Cliente Teste`,
     Email: `cliente${Date.now()}@teste.com`,
@@ -46,7 +46,7 @@ exports.seedEntregador = seedModel('entregador', {
     Telefone_Entregador: `${Date.now()}`.slice(-9)
 });
 
-
+// O produto é mais complexo, por isso tem a sua própria função
 exports.seedProduto = async (req, res) => {
     const t = await db.sequelize.transaction();
     try {
