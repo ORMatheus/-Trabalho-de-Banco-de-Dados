@@ -3,9 +3,16 @@ const db = require('../models');
 const bcrypt = require('bcryptjs'); 
 
 exports.getAllClientes = async (req, res) => {
-  
+  try {
+    const clientes = await db.cliente.findAll({
+      // ADICIONE ESTA PARTE PARA EXCLUIR A SENHA
+      attributes: { exclude: ['Hash_Senha'] }
+    });
+    res.status(200).json(clientes);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar clientes', details: error.message });
+  }
 };
-
 exports.getClienteById = async (req, res) => {
   
 };
