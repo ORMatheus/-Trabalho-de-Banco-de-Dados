@@ -1,10 +1,16 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const multer = require('multer');
 const path = require('path');
 const db = require('./models');
+
+
+// Importa os ficheiros de rotas
+const produtoRoutes = require('./routes/produtoRoutes');
+const clienteRoutes = require('./routes/clienteRoutes'); 
+const entregadorRoutes = require('./routes/entregadorRoutes');
+const gerenteRoutes = require('./routes/gerenteRoutes');
+const admRoutes = require('./routes/admRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,110 +18,51 @@ const PORT = process.env.PORT || 3000;
 // --- Middlewares ---
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+// Serve os ficheiros da pasta 'public' de forma estática para que as imagens possam ser acedidas
 
-// --- Configuração do Multer ---
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
-const upload = multer({ storage: storage });
+app.use(express.static(path.join(__dirname, 'public'))); //
+
+
+// --- Associações dos Modelos (Centralizado para garantir a ordem) ---
+// É uma boa prática garantir que as associações são definidas antes de o servidor começar a ouvir.
+const { cliente, endereco, pedido, produto, item_pedido, imagens_produto, atributos_produto, entrega, entregador } = db;
+
+if (cliente && pedido && endereco) {
+    cliente.hasMany(pedido, { foreignKey: 'id_cliente', as: 'pedidos' });
+    cliente.hasMany(endereco, { foreignKey: 'id_cliente', as: 'enderecos' });
+    pedido.belongsTo(cliente, { foreignKey: 'id_cliente', as: 'cliente' });
+    endereco.belongsTo(cliente, { foreignKey: 'id_cliente', as: 'cliente' });
+}
+if (pedido && item_pedido && entrega) {
+    pedido.hasMany(item_pedido, { foreignKey: 'id_pedido', as: 'itensPedido' });
+    pedido.hasOne(entrega, { foreignKey: 'id_pedido', as: 'entrega' });
+    item_pedido.belongsTo(pedido, { foreignKey: 'id_pedido', as: 'pedido' });
+    entrega.belongsTo(pedido, { foreignKey: 'id_pedido', as: 'pedido' });
+}
+if (produto && item_pedido && imagens_produto && atributos_produto) {
+    produto.hasMany(item_pedido, { foreignKey: 'id_produto', as: 'itensPedido' });
+    produto.hasMany(imagens_produto, { foreignKey: 'id_produto', as: 'imagens' });
+    produto.hasMany(atributos_produto, { foreignKey: 'id_produto', as: 'atributos' });
+    item_pedido.belongsTo(produto, { foreignKey: 'id_produto', as: 'produto' });
+    imagens_produto.belongsTo(produto, { foreignKey: 'id_produto', as: 'produto' });
+    atributos_produto.belongsTo(produto, { foreignKey: 'id_produto', as: 'produto' });
+}
+if (entrega && entregador) {
+    entrega.belongsTo(entregador, { foreignKey: 'id_entregador', as: 'entregador' });
+    entregador.hasMany(entrega, { foreignKey: 'id_entregador', as: 'entregas' });
+}
+
 
 // --- Rotas da API ---
+// Qualquer requisição que comece com '/api/produtos' será gerida pelo 'produtoRoutes'
+app.use('/api/produtos', produtoRoutes);
 
-// Rota de Cadastro de Cliente
-app.post('/api/clientes', async (req, res) => {
-    try {
-        const { Nome, Email, Hash_Senha, Telefone } = req.body;
-        if (!Nome || !Email || !Hash_Senha) {
-            return res.status(400).json({ message: 'Nome, email e senha são obrigatórios.' });
-        }
-        const clienteExistente = await db.cliente.findOne({ where: { Email: Email } });
-        if (clienteExistente) {
-            return res.status(409).json({ message: 'Este email já está cadastrado.' });
-        }
-        const senhaHasheada = await bcrypt.hash(Hash_Senha, 10);
-        const novoCliente = await db.cliente.create({
-            Nome,
-            Email,
-            Hash_Senha: senhaHasheada,
-            Telefone
-        });
-        const clienteParaRetorno = novoCliente.toJSON();
-        delete clienteParaRetorno.Hash_Senha;
-        res.status(201).json(clienteParaRetorno);
-    } catch (error) {
-        console.error('Erro ao criar cliente:', error);
-        res.status(500).json({ message: 'Ocorreu um erro no servidor.' });
-    }
-});
-
-// Rota de Cadastro de Produto
-app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
-    const t = await db.sequelize.transaction();
-    try {
-        const { nome_produto, descricao, preco, qtd_estoque, cor, tamanho } = req.body;
-        if (!req.file) {
-            return res.status(400).json({ message: 'A imagem do produto é obrigatória.' });
-        }
-        const novoProduto = await db.produto.create({
-            nome_produto,
-            descricao,
-            preco,
-            qtd_estoque
-        }, { transaction: t });
-        await db.atributos_produto.create({
-            id_produto: novoProduto.id_produto,
-            tipo_atributo: 'Cor',
-            valor_atributo: cor
-        }, { transaction: t });
-        await db.atributos_produto.create({
-            id_produto: novoProduto.id_produto,
-            tipo_atributo: 'Tamanho',
-            valor_atributo: tamanho
-        }, { transaction: t });
-        const imageUrl = `/uploads/${req.file.filename}`;
-        await db.imagens_produto.create({
-            id_produto: novoProduto.id_produto,
-            url_imagem: imageUrl
-        }, { transaction: t });
-        await t.commit();
-        res.status(201).json(novoProduto);
-    } catch (error) {
-        await t.rollback();
-        console.error('Erro ao criar produto:', error);
-        res.status(500).json({ message: 'Ocorreu um erro no servidor ao criar o produto.' });
-    }
-});
-
-// NOVA Rota para Buscar todos os Produtos
-app.get('/api/produtos', async (req, res) => {
-    try {
-        const produtos = await db.produto.findAll({
-            include: [
-                {
-                    model: db.imagens_produto,
-                    as: 'imagens',
-                    attributes: ['url_imagem']
-                },
-                {
-                    model: db.atributos_produto,
-                    as: 'atributos',
-                    attributes: ['tipo_atributo', 'valor_atributo']
-                }
-            ],
-            order: [['id_produto', 'DESC']] // Mostra os mais recentes primeiro
-        });
-        res.status(200).json(produtos);
-    } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
-        res.status(500).json({ message: 'Ocorreu um erro no servidor ao buscar os produtos.' });
-    }
-});
+// Qualquer requisição que comece com '/api/clientes' será gerida pelo 'clienteRoutes'
+// (É recomendado criar um controller e uma rota para clientes também)
+app.use('/api/clientes', clienteRoutes);
+app.use('/api/adms', admRoutes);
+app.use('/api/gerentes', gerenteRoutes); 
+app.use('/api/entregadores', entregadorRoutes);
 
 
 // --- Inicialização do Servidor ---

@@ -89,7 +89,7 @@ async function run() {
         include: [{
             model: db.Endereco,
             as: 'enderecos',
-            attributes: [] // Não precisamos dos atributos do endereço aqui, apenas para a contagem
+            attributes: [] 
         }],
         group: ['Cliente.ID_Cliente', 'Cliente.Nome'], // Agrupa pelo cliente
         order: [[db.sequelize.fn('COUNT', db.sequelize.col('enderecos.ID_Endereço')), 'DESC']] // Ordena pela contagem
@@ -100,7 +100,7 @@ async function run() {
   } catch (error) {
     console.error('Erro na execução do ORM:', error);
   } finally {
-    // É importante fechar a conexão do banco de dados quando terminar de usá-la
+    
     await db.sequelize.close();
     console.log('\nConexão com o banco de dados fechada.');
   }
