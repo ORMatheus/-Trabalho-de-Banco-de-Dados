@@ -23,8 +23,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); //
 
 
-// --- Associações dos Modelos (Centralizado para garantir a ordem) ---
-// É uma boa prática garantir que as associações são definidas antes de o servidor começar a ouvir.
+
 const { cliente, endereco, pedido, produto, item_pedido, imagens_produto, atributos_produto, entrega, entregador } = db;
 
 if (cliente && pedido && endereco) {
