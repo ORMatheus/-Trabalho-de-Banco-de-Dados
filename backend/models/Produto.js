@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'status'
     }
   }, {
-    tableName: 'produto', // Nome exato da tabela no seu SQL [cite: 3]
+    tableName: 'produto', // Nome exato da tabela no seu SQL
     timestamps: false
   });
 

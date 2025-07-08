@@ -42,12 +42,7 @@ async function run() {
     const produtos = await db.Produto.findAll({ limit: 3 }); // Limita para não mostrar todos se houver muitos
     console.log('Alguns produtos:', produtos.map(p => p.toJSON()));
 
-    // DELETE: (Cuidado ao executar, pois removerá dados!)
-    // const clienteParaDeletar = await db.Cliente.findByPk(novoCliente.ID_Cliente);
-    // if (clienteParaDeletar) {
-    //   await clienteParaDeletar.destroy();
-    //   console.log('Cliente deletado com sucesso:', novoCliente.ID_Cliente);
-    // }
+    
 
     console.log('\n--- Exemplo de Consultas Complexas com Associações ---');
 

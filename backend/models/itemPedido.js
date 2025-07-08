@@ -23,14 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       // CHECK (QTD > 0) é constraint do BD
       field: 'qtd'
     },
-    Preço_unidade: { // Caracter especial no nome da coluna [cite: 7]
+    Preço_unidade: { // Caracter especial no nome da coluna 
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       // CHECK (Preço_unidade >= 0) é constraint do BD
       field: 'preco_unidade'
     }
   }, {
-    tableName: 'item_pedido', // Nome exato da tabela no seu SQL [cite: 7]
+    tableName: 'item_pedido', // Nome exato da tabela no seu SQL 
     timestamps: false
   });
 
