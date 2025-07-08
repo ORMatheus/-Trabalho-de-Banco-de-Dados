@@ -1,8 +1,8 @@
 // controllers/clienteController.js
 const db = require('../models');
-const bcrypt = require('bcryptjs'); // Certifique-se que o bcrypt está importado
+const bcrypt = require('bcryptjs'); // Certifique-se que o bcryptjs está instalado (npm install bcryptjs)
 
-// Busca todos os clientes (Já corrigido para não enviar a senha)
+// Busca todos os clientes
 exports.getAllClientes = async (req, res) => {
   try {
     const clientes = await db.cliente.findAll({
@@ -14,11 +14,10 @@ exports.getAllClientes = async (req, res) => {
   }
 };
 
-// Busca um cliente por ID (CORRIGIDO)
+// Busca um cliente por ID
 exports.getClienteById = async (req, res) => {
   try {
     const cliente = await db.cliente.findByPk(req.params.id, {
-      // IMPORTANTE: Exclui a senha da resposta
       attributes: { exclude: ['Hash_Senha'] }
     });
     if (cliente) {
@@ -31,12 +30,46 @@ exports.getClienteById = async (req, res) => {
   }
 };
 
-// Cria um novo cliente (Já estava correto)
+// Cria um novo cliente (LÓGICA CORRIGIDA E COMPLETA)
 exports.createCliente = async (req, res) => {
-  // ... seu código de criação existente ...
+  try {
+    const { Nome, Email, Hash_Senha, Telefone } = req.body;
+
+    // Validação de entrada
+    if (!Nome || !Email || !Hash_Senha) {
+      return res.status(400).json({ message: 'Nome, email e senha são obrigatórios.' });
+    }
+
+    // Verifica se o cliente já existe
+    const clienteExistente = await db.cliente.findOne({ where: { Email: Email } });
+    if (clienteExistente) {
+      return res.status(409).json({ message: 'Este email já está cadastrado.' });
+    }
+
+    // Criptografa a senha antes de guardar
+    const senhaHasheada = await bcrypt.hash(Hash_Senha, 10);
+
+    // Cria o novo cliente no banco de dados
+    const novoCliente = await db.cliente.create({
+      Nome,
+      Email,
+      Hash_Senha: senhaHasheada,
+      Telefone
+    });
+
+    // Retorna o cliente criado (sem a senha)
+    const clienteParaRetorno = novoCliente.toJSON();
+    delete clienteParaRetorno.Hash_Senha;
+
+    res.status(201).json(clienteParaRetorno);
+
+  } catch (error) {
+    console.error('Erro ao criar cliente:', error);
+    res.status(500).json({ message: 'Ocorreu um erro no servidor ao criar o cliente.' });
+  }
 };
 
-// Atualiza um cliente (CORRIGIDO)
+// Atualiza um cliente
 exports.updateCliente = async (req, res) => {
   try {
     const cliente = await db.cliente.findByPk(req.params.id);
@@ -46,12 +79,10 @@ exports.updateCliente = async (req, res) => {
 
     const { Nome, Email, Telefone, Hash_Senha } = req.body;
 
-    // Se uma nova senha foi enviada no formulário, criptografa e atualiza.
     if (Hash_Senha) {
       cliente.Hash_Senha = await bcrypt.hash(Hash_Senha, 10);
     }
 
-    // Atualiza os outros campos
     cliente.Nome = Nome;
     cliente.Email = Email;
     cliente.Telefone = Telefone;
@@ -69,5 +100,17 @@ exports.updateCliente = async (req, res) => {
 
 // Deleta um cliente
 exports.deleteCliente = async (req, res) => {
-  // ... seu código de exclusão existente ...
+    try {
+        const deletedRows = await db.cliente.destroy({
+            where: { ID_Cliente: req.params.id }
+        });
+        if (deletedRows) {
+            res.status(204).send(); 
+        } else {
+            res.status(404).json({ message: 'Cliente não encontrado' });
+        }
+    } catch (error) {
+        console.error('Erro ao deletar cliente:', error);
+        res.status(500).json({ message: 'Erro interno do servidor ao deletar cliente.' });
+    }
 };
