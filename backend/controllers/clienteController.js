@@ -1,8 +1,8 @@
-// controllers/clienteController.js
+
 const db = require('../models');
 const bcrypt = require('bcryptjs'); 
 
-// Busca todos os clientes
+
 exports.getAllClientes = async (req, res) => {
   try {
     const clientes = await db.cliente.findAll({
@@ -14,7 +14,7 @@ exports.getAllClientes = async (req, res) => {
   }
 };
 
-// Busca um cliente por ID
+
 exports.getClienteById = async (req, res) => {
   try {
     const cliente = await db.cliente.findByPk(req.params.id, {

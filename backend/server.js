@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 // --- Middlewares ---
 app.use(cors());
 app.use(express.json());
-// Serve os ficheiros da pasta 'public' de forma estática para que as imagens possam ser acedidas
+
 
 app.use(express.static(path.join(__dirname, 'public'))); //
 

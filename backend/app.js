@@ -3,18 +3,15 @@ const db = require('./models'); // Importa o objeto db que contém Sequelize e o
 
 async function run() {
   try {
-    // 1. Testar a Conexão com o Banco de Dados
+    
     await db.sequelize.authenticate();
     console.log('Conexão com o banco de dados estabelecida com sucesso via Sequelize.');
 
-    // 2. IMPORTANTE: Não use db.sequelize.sync()!
-    // Como você já criou suas tabelas na Fase 5, não queremos que o Sequelize as altere.
-    // O requisito é claro: "o código ORM não pode alterar o esquema do Banco de dados projetado/criado nas fases 4 e 5."
+
 
     console.log('\n--- Demonstração de Operações CRUD ---');
 
-    // CREATE: Criar um novo cliente
-    // Note que o ID_Cliente será gerado automaticamente pelo SERIAL
+    
   const novoCliente = await db.Cliente.create({
   Nome: 'Teste Cliente ORM 2',
   Email: 'testeNewemail@email.com',
@@ -39,7 +36,7 @@ async function run() {
     }
 
     // READ: Buscar todos os produtos
-    const produtos = await db.Produto.findAll({ limit: 3 }); // Limita para não mostrar todos se houver muitos
+    const produtos = await db.Produto.findAll({ limit: 3 }); 
     console.log('Alguns produtos:', produtos.map(p => p.toJSON()));
 
     
@@ -69,25 +66,25 @@ async function run() {
     const produtosBaixoEstoque = await db.Produto.findAll({
       where: {
         QTD_Estoque: {
-          [db.Sequelize.Op.lt]: 50 // Operador "less than" (menor que)
+          [db.Sequelize.Op.lt]: 50 
         }
       },
-      order: [['Nome_Produto', 'ASC']] // Ordena pelo nome do produto ascendente
+      order: [['Nome_Produto', 'ASC']] 
     });
     console.log('\nProdutos com menos de 50 unidades em estoque:', produtosBaixoEstoque.map(p => p.toJSON()));
 
-    // Consulta 3 (Exemplo Aluno C): Contar quantos endereços cada cliente possui
+    
     const clientesComContagemEnderecos = await db.Cliente.findAll({
         attributes: ['ID_Cliente', 'Nome',
-            [db.sequelize.fn('COUNT', db.sequelize.col('enderecos.ID_Endereço')), 'total_enderecos'] // Conta os endereços
+            [db.sequelize.fn('COUNT', db.sequelize.col('enderecos.ID_Endereço')), 'total_enderecos']
         ],
         include: [{
             model: db.Endereco,
             as: 'enderecos',
-            attributes: [] // Não precisamos dos atributos do endereço aqui, apenas para a contagem
+            attributes: [] 
         }],
         group: ['Cliente.ID_Cliente', 'Cliente.Nome'], // Agrupa pelo cliente
-        order: [[db.sequelize.fn('COUNT', db.sequelize.col('enderecos.ID_Endereço')), 'DESC']] // Ordena pela contagem
+        order: [[db.sequelize.fn('COUNT', db.sequelize.col('enderecos.ID_Endereço')), 'DESC']]
     });
     console.log('\nContagem de endereços por cliente:', clientesComContagemEnderecos.map(c => c.toJSON()));
 
@@ -95,7 +92,7 @@ async function run() {
   } catch (error) {
     console.error('Erro na execução do ORM:', error);
   } finally {
-    // É importante fechar a conexão do banco de dados quando terminar de usá-la
+    
     await db.sequelize.close();
     console.log('\nConexão com o banco de dados fechada.');
   }

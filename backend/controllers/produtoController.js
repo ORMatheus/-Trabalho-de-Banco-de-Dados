@@ -1,4 +1,4 @@
-// controllers/produtoController.js
+
 const db = require('../models');
 
 /**
