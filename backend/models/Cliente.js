@@ -32,17 +32,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false // Desabilita createdAt e updatedAt
   });
 
-  Cliente.associate = (models) => {
-  // Um Cliente TEM MUITOS Endereços
-  Cliente.hasMany(models.endereco, {
-    foreignKey: 'ID_Cliente',
-    as: 'enderecos'
-  });
-  // Um Cliente TEM MUITOS Pedidos
-  Cliente.hasMany(models.pedido, {
-    foreignKey: 'ID_Cliente',
-    as: 'pedidos'
-  });
-};
+
   return Cliente;
 };

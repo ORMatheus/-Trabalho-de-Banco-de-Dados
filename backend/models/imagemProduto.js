@@ -15,19 +15,13 @@ module.exports = (sequelize, DataTypes) => {
     URL_Img: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      field: 'url_imagem'
+      field: 'url_img'
     }
   }, {
     tableName: 'imagens_produto',
     timestamps: false
   });
 
-  ImagensProduto.associate = (models) => {
-  // Uma Imagem PERTENCE A UM Produto
-  ImagensProduto.belongsTo(models.produto, {
-    foreignKey: 'ID_Produto',
-    as: 'produto'
-  });
-};
+ 
   return ImagensProduto;
 };

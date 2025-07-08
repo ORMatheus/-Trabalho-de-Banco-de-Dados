@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     ID_Pedido: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true, // UNIQUE Constraint no SQL 
+      unique: true, 
       field: 'id_pedido'
     },
     ID_Entregador: {
@@ -19,17 +19,17 @@ module.exports = (sequelize, DataTypes) => {
       field: 'id_entregador'
     },
     Data_Envio: {
-      type: DataTypes.DATE, // TIMESTAMP no SQL
+      type: DataTypes.DATE, 
       allowNull: false,
       field: 'data_envio'
     },
-    Data_Previsão_Entrega: { // Caracter especial no nome da coluna
-      type: DataTypes.DATE, // TIMESTAMP no SQL
+    Data_Previsão_Entrega: { 
+      type: DataTypes.DATE, 
       allowNull: false,
       field: 'data_previsao_entrega'
     },
     Data_Entrega_Real: {
-      type: DataTypes.DATE, // TIMESTAMP no SQL, pode ser NULL 
+      type: DataTypes.DATE, 
       field: 'data_entrega_real'
     },
     Status_Entrega: {
@@ -39,21 +39,10 @@ module.exports = (sequelize, DataTypes) => {
       field: 'status_entrega'
     }
   }, {
-    tableName: 'entrega', // Nome exato da tabela no seu SQL 
+    tableName: 'entrega', 
     timestamps: false
   });
 
-  Entrega.associate = (models) => {
-  // Uma Entrega PERTENCE A UM Pedido
-  Entrega.belongsTo(models.pedido, {
-    foreignKey: 'ID_Pedido',
-    as: 'pedido'
-  });
-  // Uma Entrega PERTENCE A UM Entregador
-  Entrega.belongsTo(models.entregador, {
-    foreignKey: 'ID_Entregador',
-    as: 'entregador'
-  });
-};
+  
   return Entrega;
 };

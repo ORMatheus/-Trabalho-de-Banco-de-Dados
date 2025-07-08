@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     Tipo_Atributo: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      field: 'tipo_Atributo'
+      field: 'tipo_atributo'
     },
     Valor_Atributo: {
       type: DataTypes.STRING(50),
@@ -27,12 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
-  Atributos_Produto.associate = (models) => {
-  // Um Atributo PERTENCE A UM Produto
-  Atributos_Produto.belongsTo(models.produto, {
-    foreignKey: 'ID_Produto',
-    as: 'produto'
-  });
-};
+ 
   return Atributos_Produto;
 };
