@@ -18,12 +18,13 @@ exports.getAllAdms = async (req, res) => {
 exports.getAdmById = async (req, res) => {
     try {
         const adm = await db.adm.findByPk(req.params.id, {
+            
             attributes: { exclude: ['Hash_Senha_Admin'] }
         });
         if (adm) {
             res.status(200).json(adm);
         } else {
-            res.status(404).json({ message: 'Administrador não encontrado.' });
+            res.status(404).json({ message: 'Administrador não encontrado' });
         }
     } catch (error) {
         res.status(500).json({ message: 'Erro ao buscar administrador.' });
