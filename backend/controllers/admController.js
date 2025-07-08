@@ -15,5 +15,13 @@ exports.createAdm= async(req, res) => {
             Email_Admin,
             Hash_Senha_Admin: senhaCriptografada,
         });
+        const { Hash_Senha_Admin: _, ...admSemSenha } = novoAdm.get({ plain: true });
+        res.status(201).json(admSemSenha);
+    }catch (error) {
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(409).json({ message: 'Este email já está cadastrado.' });
+        }
+        console.error('Erro ao criar ADM:', error);
+        res.status(500).json({ message: 'Ocorreu um erro no servidor.' });
     }
-}
+};
