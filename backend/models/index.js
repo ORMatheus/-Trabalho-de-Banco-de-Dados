@@ -10,7 +10,7 @@ const config = require(__dirname + '/../config/database.js').development;
 const db = {};
 
 let sequelize;
-// Cria a instância do Sequelize usando as configurações do seu ficheiro
+
 sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 // Lê todos os ficheiros na pasta 'models'

@@ -1,11 +1,11 @@
-// models/Cliente.js
+
 module.exports = (sequelize, DataTypes) => {
   const Cliente = sequelize.define('cliente', {
     ID_Cliente: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: 'id_cliente' // Garante que o nome da coluna no BD seja respeitado
+      field: 'id_cliente' 
     },
     Nome: {
       type: DataTypes.STRING(100),
@@ -28,15 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       field: 'telefone'
     }
   }, {
-    tableName: 'cliente', // Nome exato da tabela no seu SQL
-    timestamps: false // Desabilita createdAt e updatedAt
+    tableName: 'cliente', 
+    timestamps: false 
   });
 
-  // Opcional: Você pode definir associações aqui ou em index.js
-  // Cliente.associate = (models) => {
-  //   Cliente.hasMany(models.Endereco, { foreignKey: 'ID_Cliente', as: 'enderecos' });
-  //   Cliente.hasMany(models.Pedido, { foreignKey: 'ID_Cliente', as: 'pedidos' });
-  // };
-
+  
   return Cliente;
 };

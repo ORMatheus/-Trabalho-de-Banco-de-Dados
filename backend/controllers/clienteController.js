@@ -57,7 +57,6 @@ exports.createCliente = async (req, res) => {
       Telefone
     });
 
-    // Retorna o cliente criado (sem a senha)
     const clienteParaRetorno = novoCliente.toJSON();
     delete clienteParaRetorno.Hash_Senha;
 

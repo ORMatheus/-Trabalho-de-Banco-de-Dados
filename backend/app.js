@@ -1,5 +1,5 @@
 // app.js
-const db = require('./models'); // Importa o objeto db que contém Sequelize e os modelos
+const db = require('./models'); 
 
 async function run() {
   try {
