@@ -1,6 +1,6 @@
 // controllers/clienteController.js
-const db = require('../models'); // Importa seus modelos
-
+const db = require('../models'); 
+const bcrypt = require('bcryptjs');
 exports.getAllClientes = async (req, res) => {
   try {
     const clientes = await db.Cliente.findAll();
