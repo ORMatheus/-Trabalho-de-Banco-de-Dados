@@ -1,4 +1,4 @@
-// models/Gerente.js
+
 module.exports = (sequelize, DataTypes) => {
   const Gerente = sequelize.define('gerente', {
     ID_Gerente: {

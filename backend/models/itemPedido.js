@@ -1,4 +1,4 @@
-// models/ItemPedido.js
+
 module.exports = (sequelize, DataTypes) => {
   const ItemPedido = sequelize.define('item_pedido', { // Use 'Item_Pedido' para o modelo
     ID_Item_Pedido: {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       // CHECK (QTD > 0) é constraint do BD
       field: 'qtd'
     },
-    Preço_unidade: { // Caracter especial no nome da coluna [cite: 7]
+    Preço_unidade: { 
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       // CHECK (Preço_unidade >= 0) é constraint do BD
@@ -34,17 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
-    ItemPedido.associate = (models) => {
-  // Um ItemPedido PERTENCE A UM Pedido
-  ItemPedido.belongsTo(models.pedido, {
-    foreignKey: 'ID_Pedido',
-    as: 'pedido'
-  });
-  // Um ItemPedido PERTENCE A UM Produto
-  ItemPedido.belongsTo(models.produto, {
-    foreignKey: 'ID_Produto',
-    as: 'produto'
-  });
-};
+   
   return ItemPedido;
 };

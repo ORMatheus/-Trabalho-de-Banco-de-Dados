@@ -1,4 +1,4 @@
-// models/ImagensProduto.js
+
 module.exports = (sequelize, DataTypes) => {
   const ImagensProduto = sequelize.define('imagens_produto', { // Use 'Imagens_Produto' para o modelo
     ID_Imagem: {

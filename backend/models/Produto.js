@@ -1,4 +1,4 @@
-// models/Produto.js
+
 module.exports = (sequelize, DataTypes) => {
   const Produto = sequelize.define('produto', {
     ID_Produto: {
@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'nome_produto'
     },
-   Descricao: { // Caracter especial no nome da coluna 
+   Descricao: { 
       type: DataTypes.TEXT,
       field: 'descricao'
     },
-    Preço: { // Caracter especial no nome da coluna 
+    Preço: { 
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       // CHECK (Preço >= 0) é uma constraint do BD, não é replicada no ORM, mas o BD a enforces
@@ -35,28 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       field: 'status'
     }
   }, {
-    tableName: 'produto', // Nome exato da tabela no seu SQL [cite: 3]
+    tableName: 'produto', 
     timestamps: false
   });
 
-  Produto.associate = (models) => {
-  // Relação Muitos-para-Muitos: Produto <-> Pedido
-  Produto.belongsToMany(models.pedido, {
-    through: models.item_pedido,      // Através da tabela item_pedido
-    foreignKey: 'ID_Produto',
-    as: 'pedidos'
-  });
-  // Um Produto TEM MUITOS Atributos
-  Produto.hasMany(models.atributos_produto, {
-    foreignKey: 'ID_Produto',
-    as: 'atributos'
-  });
-  // Um Produto TEM MUITAS Imagens
-  Produto.hasMany(models.imagens_produto, {
-    foreignKey: 'ID_Produto',
-    as: 'imagens'
-  });
-};
-
+  
   return Produto;
 };

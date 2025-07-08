@@ -1,4 +1,4 @@
-// models/ADM.js
+
 module.exports = (sequelize, DataTypes) => {
   const ADM = sequelize.define('adm', {
     ID_Admin: {

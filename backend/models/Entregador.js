@@ -1,4 +1,4 @@
-// models/Entregador.js
+
 module.exports = (sequelize, DataTypes) => {
   const Entregador = sequelize.define('entregador', {
     ID_Entregador: {

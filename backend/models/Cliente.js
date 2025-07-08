@@ -1,4 +1,4 @@
-// models/Cliente.js
+
 module.exports = (sequelize, DataTypes) => {
   const Cliente = sequelize.define('cliente', {
     ID_Cliente: {

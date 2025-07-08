@@ -1,4 +1,4 @@
-// models/Endereco.js
+
 module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo exportada
   const Endereco = sequelize.define('endereco', {
     ID_Endereço: { // Note o uso de 'ç' aqui - certifique-se de que corresponde ao SQL
