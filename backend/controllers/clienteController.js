@@ -1,6 +1,6 @@
 // controllers/clienteController.js
 const db = require('../models');
-const bcrypt = require('bcryptjs'); /
+const bcrypt = require('bcryptjs'); 
 
 // Busca todos os clientes
 exports.getAllClientes = async (req, res) => {
