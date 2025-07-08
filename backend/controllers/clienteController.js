@@ -1,11 +1,11 @@
 // controllers/clienteController.js
 const db = require('../models');
-const bcrypt = require('bcryptjs'); 
+const bcrypt = require('bcryptjs'); // Certifique-se que o bcrypt está importado
 
+// Busca todos os clientes (Já corrigido para não enviar a senha)
 exports.getAllClientes = async (req, res) => {
   try {
     const clientes = await db.cliente.findAll({
-      // ADICIONE ESTA PARTE PARA EXCLUIR A SENHA
       attributes: { exclude: ['Hash_Senha'] }
     });
     res.status(200).json(clientes);
@@ -13,68 +13,14 @@ exports.getAllClientes = async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar clientes', details: error.message });
   }
 };
+
+// Busca um cliente por ID (CORRIGIDO)
 exports.getClienteById = async (req, res) => {
-  
-};
-
-exports.createCliente = async (req, res) => {
   try {
-    const { Nome, Email, Hash_Senha, Telefone } = req.body;
-
-    
-    if (!Nome || !Email || !Hash_Senha) {
-      return res.status(400).json({ error: 'Nome, Email e Senha são obrigatórios' });
-    }
-
-    
-    const senhaCriptografada = await bcrypt.hash(Hash_Senha, 10); // 10 é o "custo" do hash
-
-    
-    const novoCliente = await db.cliente.create({
-        Nome,
-        Email,
-        Hash_Senha: senhaCriptografada, // Salva o hash, não a senha original
-        Telefone
+    const cliente = await db.cliente.findByPk(req.params.id, {
+      // IMPORTANTE: Exclui a senha da resposta
+      attributes: { exclude: ['Hash_Senha'] }
     });
-
-    
-    const { Hash_Senha: _, ...clienteSemSenha } = novoCliente.get({ plain: true });
-    res.status(201).json(clienteSemSenha);
-
-  } catch (error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(409).json({ error: 'E-mail já cadastrado' });
-    }
-    console.error('Erro ao criar cliente:', error);
-    res.status(500).json({ error: 'Erro ao criar cliente', details: error.message });
-  }
-};
-
-exports.updateCliente = async (req, res) => {
-  
-};
-
-exports.deleteCliente = async (req, res) => {
-  
-};
-
-
-/*
-// controllers/clienteController.js
-const db = require('../models'); 
-const bcrypt = require('bcryptjs');
-exports.getAllClientes = async (req, res) => {
-  try {
-    const clientes = await db.Cliente.findAll();
-    res.status(200).json(clientes);
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar clientes', details: error.message });
-  }
-};
-
-exports.getClienteById = async (req, res) => {
-  try {
-    const cliente = await db.Cliente.findByPk(req.params.id);
     if (cliente) {
       res.status(200).json(cliente);
     } else {
@@ -85,54 +31,43 @@ exports.getClienteById = async (req, res) => {
   }
 };
 
+// Cria um novo cliente (Já estava correto)
 exports.createCliente = async (req, res) => {
-  try {
-    
-    if (!req.body.Nome || !req.body.Email || !req.body.Hash_Senha) {
-      return res.status(400).json({ error: 'Nome, Email e Senha são obrigatórios' });
-    }
-
-    const novoCliente = await db.Cliente.create(req.body);
-    res.status(201).json(novoCliente);
-  } catch (error) {
-    
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(409).json({ error: 'E-mail já cadastrado', details: error.errors[0].message });
-    }
-    res.status(500).json({ error: 'Erro ao criar cliente', details: error.message });
-  }
+  // ... seu código de criação existente ...
 };
 
+// Atualiza um cliente (CORRIGIDO)
 exports.updateCliente = async (req, res) => {
   try {
-    const [updatedRows] = await db.Cliente.update(req.body, {
-      where: { ID_Cliente: req.params.id }
-    });
-    if (updatedRows) {
-      const clienteAtualizado = await db.Cliente.findByPk(req.params.id);
-      res.status(200).json(clienteAtualizado);
-    } else {
-      res.status(404).json({ error: 'Cliente não encontrado' });
+    const cliente = await db.cliente.findByPk(req.params.id);
+    if (!cliente) {
+      return res.status(404).json({ error: 'Cliente não encontrado' });
     }
+
+    const { Nome, Email, Telefone, Hash_Senha } = req.body;
+
+    // Se uma nova senha foi enviada no formulário, criptografa e atualiza.
+    if (Hash_Senha) {
+      cliente.Hash_Senha = await bcrypt.hash(Hash_Senha, 10);
+    }
+
+    // Atualiza os outros campos
+    cliente.Nome = Nome;
+    cliente.Email = Email;
+    cliente.Telefone = Telefone;
+    
+    await cliente.save();
+    res.status(200).json({ message: 'Cliente atualizado com sucesso!' });
+
   } catch (error) {
      if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(409).json({ error: 'E-mail já cadastrado para outro usuário', details: error.errors[0].message });
+      return res.status(409).json({ error: 'E-mail já cadastrado para outro usuário' });
     }
     res.status(500).json({ error: 'Erro ao atualizar cliente', details: error.message });
   }
 };
 
+// Deleta um cliente
 exports.deleteCliente = async (req, res) => {
-  try {
-    const deletedRows = await db.Cliente.destroy({
-      where: { ID_Cliente: req.params.id }
-    });
-    if (deletedRows) {
-      res.status(204).send(); // 204 No Content para deleção bem-sucedida
-    } else {
-      res.status(404).json({ error: 'Cliente não encontrado' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao deletar cliente', details: error.message });
-  }
-}; */
+  // ... seu código de exclusão existente ...
+};
