@@ -1,6 +1,6 @@
 // controllers/clienteController.js
 const db = require('../models');
-const bcrypt = require('bcryptjs'); // Certifique-se que o bcryptjs está instalado (npm install bcryptjs)
+const bcrypt = require('bcryptjs'); /
 
 // Busca todos os clientes
 exports.getAllClientes = async (req, res) => {
@@ -30,7 +30,7 @@ exports.getClienteById = async (req, res) => {
   }
 };
 
-// Cria um novo cliente (LÓGICA CORRIGIDA E COMPLETA)
+
 exports.createCliente = async (req, res) => {
   try {
     const { Nome, Email, Hash_Senha, Telefone } = req.body;

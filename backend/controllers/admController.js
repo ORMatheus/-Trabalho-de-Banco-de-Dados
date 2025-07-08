@@ -1,8 +1,8 @@
-// controllers/admController.js
+
 const db = require('../models');
 const bcrypt = require('bcryptjs');
 
-// READ (Todos)
+
 exports.getAllAdms = async (req, res) => {
     try {
         const adms = await db.adm.findAll({
@@ -14,7 +14,7 @@ exports.getAllAdms = async (req, res) => {
     }
 };
 
-// READ (Por ID)
+
 exports.getAdmById = async (req, res) => {
     try {
         const adm = await db.adm.findByPk(req.params.id, {
@@ -31,7 +31,7 @@ exports.getAdmById = async (req, res) => {
     }
 };
 
-// CREATE
+
 exports.createAdm = async (req, res) => {
     try {
         const { Nome_Admin, Email_Admin, Hash_Senha_Admin } = req.body;
@@ -54,7 +54,7 @@ exports.createAdm = async (req, res) => {
     }
 };
 
-// UPDATE
+
 exports.updateAdm = async (req, res) => {
     try {
         const adm = await db.adm.findByPk(req.params.id);
@@ -74,7 +74,7 @@ exports.updateAdm = async (req, res) => {
     }
 };
 
-// DELETE
+
 exports.deleteAdm = async (req, res) => {
     try {
         const adm = await db.adm.findByPk(req.params.id);
