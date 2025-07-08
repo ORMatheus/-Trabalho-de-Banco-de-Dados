@@ -76,6 +76,7 @@ Para rodar este projeto localmente, siga os passos abaixo.
 1.  **Clone o repositório:**
     ```bash
     git clone <url-do-seu-repositorio>
+    baixe o banco de dados
     ```
 
 2.  **Navegue até a pasta do backend:**
@@ -94,7 +95,7 @@ Para rodar este projeto localmente, siga os passos abaixo.
     DB_HOST=localhost
     DB_USER=seu_usuario_postgres
     DB_PASS=sua_senha_postgres
-    DB_NAME=pregai_db # ou o nome do seu banco
+    DB_NAME=pregai
     DB_PORT=5432
     ```
 
