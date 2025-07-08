@@ -69,7 +69,7 @@ exports.createCliente = async (req, res) => {
   }
 };
 
-// Atualiza um cliente
+
 exports.updateCliente = async (req, res) => {
   try {
     const cliente = await db.cliente.findByPk(req.params.id);
@@ -98,18 +98,28 @@ exports.updateCliente = async (req, res) => {
   }
 };
 
-// Deleta um cliente
+
 exports.deleteCliente = async (req, res) => {
     try {
         const deletedRows = await db.cliente.destroy({
             where: { ID_Cliente: req.params.id }
         });
-        if (deletedRows) {
+
+        if (deletedRows > 0) {
             res.status(204).send(); 
         } else {
             res.status(404).json({ message: 'Cliente não encontrado' });
         }
     } catch (error) {
+      
+        if (error.name === 'SequelizeForeignKeyConstraintError') {
+            return res.status(409).json({ 
+                message: 'Não é possível deletar este cliente pois ele possui registros associados (como pedidos ou endereços).',
+                details: error.parent.detail 
+            });
+        }
+        
+        
         console.error('Erro ao deletar cliente:', error);
         res.status(500).json({ message: 'Erro interno do servidor ao deletar cliente.' });
     }
