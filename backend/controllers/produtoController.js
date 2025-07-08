@@ -1,4 +1,4 @@
-// backend/controllers/produtoController.js
+
 const db = require('../models');
 
 // Obter todos os produtos (com paginação opcional)
