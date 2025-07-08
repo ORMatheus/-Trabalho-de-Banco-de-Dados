@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'nome_produto'
     },
-   Descricao: { // Caracter especial no nome da coluna 
+   Descricao: { 
       type: DataTypes.TEXT,
       field: 'descricao'
     },
-    Preço: { // Caracter especial no nome da coluna 
+    Preço: { 
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       // CHECK (Preço >= 0) é uma constraint do BD, não é replicada no ORM, mas o BD a enforces

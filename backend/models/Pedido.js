@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     Status_pedido: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      // CHECK (Status_pedido IN ('pendente', 'processando', 'enviado', 'entregue', 'cancelado')) é constraint do BD
+      
       field: 'status_pedido'
     }
   }, {

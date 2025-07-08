@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'hash_senha_gerente'
     }
   }, {
-    tableName: 'gerente', // Nome exato da tabela no seu SQL 
+    tableName: 'gerente',  
     timestamps: false
   });
 

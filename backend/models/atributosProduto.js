@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'valor_atributo'
     }
   }, {
-    tableName: 'atributos_produto', // Nome exato da tabela no seu SQL 
+    tableName: 'atributos_produto', 
     timestamps: false
   });
 

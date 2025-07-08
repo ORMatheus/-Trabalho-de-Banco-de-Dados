@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'telefone_entregador'
     }
   }, {
-    tableName: 'entregador', // Nome exato da tabela no seu SQL
+    tableName: 'entregador', 
     timestamps: false
   });
 

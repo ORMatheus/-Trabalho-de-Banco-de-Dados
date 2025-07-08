@@ -30,7 +30,7 @@ fs
     db[model.name] = model;
   });
 
-// Associa os modelos se houver um método 'associate' definido neles
+
 
 
 db.sequelize = sequelize;
