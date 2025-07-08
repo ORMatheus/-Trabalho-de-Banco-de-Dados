@@ -1,4 +1,4 @@
-// config/database.js
+
 require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
 
 module.exports = {
@@ -13,14 +13,5 @@ module.exports = {
     logging: false,                     // Opcional: define se o Sequelize deve logar as queries SQL no console.
                                         // Mude para true se quiser ver as queries geradas.
   },
-  // Você pode adicionar configurações para 'test' e 'production' aqui, se necessário.
-  // Exemplo:
-  // production: {
-  //   username: process.env.PROD_DB_USER,
-  //   password: process.env.PROD_DB_PASSWORD,
-  //   database: process.env.PROD_DB_NAME,
-  //   host: process.env.PROD_DB_HOST,
-  //   dialect: 'postgres',
-  //   logging: false,
-  // }
+  
 };
