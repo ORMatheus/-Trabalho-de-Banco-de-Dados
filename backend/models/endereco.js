@@ -1,7 +1,7 @@
 // models/Endereco.js
-module.exports = (sequelize, DataTypes) => { // <-- Isso é uma função sendo exportada
+module.exports = (sequelize, DataTypes) => { 
   const Endereco = sequelize.define('endereco', {
-    ID_Endereço: { // Note o uso de 'ç' aqui - certifique-se de que corresponde ao SQL
+    ID_Endereço: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

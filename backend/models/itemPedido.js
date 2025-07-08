@@ -1,6 +1,6 @@
 // models/ItemPedido.js
 module.exports = (sequelize, DataTypes) => {
-  const ItemPedido = sequelize.define('item_pedido', { // Use 'Item_Pedido' para o modelo
+  const ItemPedido = sequelize.define('item_pedido', { 
     ID_Item_Pedido: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'preco_unidade'
     }
   }, {
-    tableName: 'item_pedido', // Nome exato da tabela no seu SQL 
+    tableName: 'item_pedido',  
     timestamps: false
   });
 

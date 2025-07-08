@@ -1,6 +1,6 @@
 // models/AtributosProduto.js
 module.exports = (sequelize, DataTypes) => {
-  const Atributos_Produto = sequelize.define('atributos_produto', { // Use 'Atributos_Produto' para o modelo
+  const Atributos_Produto = sequelize.define('atributos_produto', {
     ID_Atributo: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'valor_atributo'
     }
   }, {
-    tableName: 'atributos_produto', // Nome exato da tabela no seu SQL [cite: 4]
+    tableName: 'atributos_produto', // Nome exato da tabela no seu SQL 
     timestamps: false
   });
 

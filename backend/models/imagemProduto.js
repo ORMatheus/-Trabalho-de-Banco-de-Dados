@@ -1,6 +1,6 @@
 // models/ImagensProduto.js
 module.exports = (sequelize, DataTypes) => {
-  const ImagensProduto = sequelize.define('imagens_produto', { // Use 'Imagens_Produto' para o modelo
+  const ImagensProduto = sequelize.define('imagens_produto', { 
     ID_Imagem: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'url_img' 
     }
   }, {
-    tableName: 'imagens_produto', // Nome exato da tabela no seu SQL [cite: 5]
+    tableName: 'imagens_produto', // Nome exato da tabela no seu SQL 
     timestamps: false
   });
 
